@@ -1,0 +1,4 @@
+CREATE: Nuevo Producto[id: 1, descripcion: Sacapuntas, imagenes: [], precio: 500.0, comentarios: [], videos: []]
+CREATE: Nuevo Producto[id: 2, descripcion: Lapicera, imagenes: [], precio: 30.0, comentarios: [], videos: []]
+UPDATE: Estado Anterior[id: 1, descripcion: Sacapuntas, imagenes: [], precio: 500.0, comentarios: [], videos: []] -> Nuevo Estado[id: 1, descripcion: Sacapuntas, imagenes: [], precio: 100.0, comentarios: [], videos: []]
+DELETE: Producto Eliminado[id: 1, descripcion: Sacapuntas, imagenes: [], precio: 500.0, comentarios: [], videos: []]
