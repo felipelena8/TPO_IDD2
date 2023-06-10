@@ -11,9 +11,8 @@ public class Pedido {
     private Factura factura;
     private int numero;
     private double precio;
-    public Pedido(List<Item> items, int numero, double precio) {
+    public Pedido(List<Item> items, double precio) {
         this.items = items;
-        this.numero = numero;
         this.precio = precio;
         ControllerUsuarios.getInstancia().getSession().getPedidos().add(this);
     }

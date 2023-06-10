@@ -22,7 +22,9 @@ public class ControllerUsuarios {
         }
         return instancia;
     }
-
+    public static int idUsuario(){
+        return ControllerUsuarios.getInstancia().getSession().getId();
+    }
     public void registrarUsuario(Usuario usuario){
         if(usuarios.stream().filter(user -> user.getUsername().equals(usuario.getUsername()) && user.getPassword().equals(usuario.getPassword())).findFirst().orElse(null)==null){
             usuarios.add(usuario);

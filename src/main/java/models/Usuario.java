@@ -8,6 +8,7 @@ import java.util.List;
 
 @Data
 public class Usuario {
+    private int id;
     private String nombre;
     private String username;
     private String password;
@@ -20,7 +21,8 @@ public class Usuario {
     private int minutosPorDia;
     private CondicionFiscal condicionFiscal;
 
-    public Usuario(String nombre, String username, String password, String direccion, String dni, CondicionFiscal condicionFiscal) {
+    public Usuario(int id,String nombre, String username, String password, String direccion, String dni, CondicionFiscal condicionFiscal) {
+        this.id = id;
         this.nombre = nombre;
         this.username = username;
         this.password = password;
