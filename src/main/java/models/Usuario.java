@@ -1,13 +1,18 @@
 package models;
 
+import java.io.Serializable;
+import javax.persistence.*;
 import lombok.Data;
 import models.MedioPago.MedioPago;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class Usuario {
+@Entity
+public class Usuario implements Serializable {
+    @Id
     private int id;
     private String nombre;
     private String username;

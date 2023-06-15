@@ -9,6 +9,7 @@ import models.CondicionFiscal;
 import models.Producto;
 import models.Usuario;
 import org.springframework.boot.SpringApplication;
+import repositories.UserRepository;
 
 
 public class TpoIdd2Application {
@@ -26,6 +27,9 @@ public class TpoIdd2Application {
         ControllerProductos.getInstancia().actualizarProducto(new Producto(1, "Sacapuntas", 100));
         ControllerProductos.getInstancia().eliminarProducto(1);
         Carrito carrito = new Carrito(user1);
+        UserRepository rep = new UserRepository();
+        rep.save(user1);
+        System.out.println(rep.read(1));
 
     }
 

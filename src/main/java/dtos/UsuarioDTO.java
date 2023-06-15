@@ -15,6 +15,7 @@ public class UsuarioDTO {
     }
 
     public Usuario buscarUsuario(){
+        //TODO usar bd
         return ControllerUsuarios.getInstancia().getUsuarios().stream().filter(usuario->usuario.getUsername().equals(username) && usuario.getPassword().equals(password)).findFirst().orElse(null);
     }
 
