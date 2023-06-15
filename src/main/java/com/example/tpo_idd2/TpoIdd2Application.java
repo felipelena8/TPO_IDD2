@@ -27,7 +27,6 @@ public class TpoIdd2Application {
         ControllerProductos.getInstancia().eliminarProducto(1);
         Carrito carrito = new Carrito(user1);
 
-
     }
 
 }

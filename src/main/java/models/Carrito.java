@@ -39,8 +39,6 @@ public class Carrito implements Serializable {
                 String cantVieja = jedis.lindex(usuario.getId()+"_cart:cantidad", pos);
                 jedis.lset(usuario.getId()+"_cart:cantidad", pos,  Integer.toString(Integer.parseInt(cantVieja) + cantidad));
             }else {
-
-
                 jedis.lpush(usuario.getId() + "_cart:productos", Integer.toString(idProducto));
                 jedis.lpush(usuario.getId() + "_cart:cantidad", Integer.toString(cantidad));
             }
