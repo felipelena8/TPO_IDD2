@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 public class Producto {
-    private int  id;
+    private int id;
     private String descripcion;
     private List<String> imagenesUrl;
     private double precio;
@@ -23,7 +23,7 @@ public class Producto {
         videosUrl = new ArrayList<>();
     }
 
-    public String productoLog(){
+    public String productoLog() {
         return "id: " + id + ", descripcion: " + descripcion + ", imagenes: " + imagenesUrl + ", precio: " + precio + ", videos: " + videosUrl;
     }
 }

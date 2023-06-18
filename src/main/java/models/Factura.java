@@ -18,14 +18,14 @@ public class Factura {
         this.items = items;
     }
 
-    public void generarPago(MedioPago medioPago){
-        pago = new Pago(medioPago, precio);
-    }
-
-    public Factura( double precio, List<Item> items, String operadorInterviniente) {
+    public Factura(double precio, List<Item> items, String operadorInterviniente) {
         this.fechaHoraEmision = Instant.now();
         this.precio = precio;
         this.items = items;
         this.operadorInterviniente = operadorInterviniente;
+    }
+
+    public void generarPago(MedioPago medioPago) {
+        pago = new Pago(medioPago, precio);
     }
 }

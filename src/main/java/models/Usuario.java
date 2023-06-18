@@ -1,10 +1,10 @@
 package models;
 
-import java.io.Serializable;
-import javax.persistence.*;
 import lombok.Data;
 import models.MedioPago.MedioPago;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,7 @@ public class Usuario implements Serializable {
     private int minutosPorDia;
     private CondicionFiscal condicionFiscal;
 
-    public Usuario(int id,String nombre, String username, String password, String direccion, String dni, CondicionFiscal condicionFiscal) {
+    public Usuario(int id, String nombre, String username, String password, String direccion, String dni, CondicionFiscal condicionFiscal) {
         this.id = id;
         this.nombre = nombre;
         this.username = username;
@@ -35,7 +35,7 @@ public class Usuario implements Serializable {
         this.dni = dni;
         this.condicionFiscal = condicionFiscal;
 
-        mediosPago=new ArrayList<>();
-        pedidos=new ArrayList<>();
+        mediosPago = new ArrayList<>();
+        pedidos = new ArrayList<>();
     }
 }

@@ -1,9 +1,7 @@
 package models;
 
 import controllers.ControllerUsuarios;
-import models.MedioPago.MedioPago;
 
-import java.time.Instant;
 import java.util.List;
 
 public class Pedido {
@@ -11,6 +9,7 @@ public class Pedido {
     private Factura factura;
     private int numero;
     private double precio;
+
     public Pedido(List<Item> items, double precio) {
         this.items = items;
         this.precio = precio;
@@ -18,9 +17,10 @@ public class Pedido {
     }
 
     private void generarFactura(String operadorInterviniente) {
-       this.factura = new Factura(precio,items,operadorInterviniente);
+        this.factura = new Factura(precio, items, operadorInterviniente);
     }
+
     private void generarFactura() {
-        this.factura = new Factura(precio,items);
+        this.factura = new Factura(precio, items);
     }
 }

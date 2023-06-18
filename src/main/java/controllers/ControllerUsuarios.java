@@ -4,50 +4,48 @@ import dtos.UsuarioDTO;
 import lombok.Getter;
 import lombok.Setter;
 import models.Usuario;
-
-import java.util.ArrayList;
-import java.util.List;
+import repositories.UserRepository;
 
 public class ControllerUsuarios {
+    private UserRepository repo = new UserRepository();
+
     private static ControllerUsuarios instancia = null;
     @Getter
-    private List<Usuario> usuarios;
-
-    private ControllerUsuarios(){usuarios = new ArrayList<>();}
-    @Getter @Setter
+    @Setter
     private Usuario session;
-    public static ControllerUsuarios getInstancia(){
-        if (instancia==null){
-            instancia=new ControllerUsuarios();
+
+    private ControllerUsuarios() {
+    }
+
+    public static ControllerUsuarios getInstancia() {
+        if (instancia == null) {
+            instancia = new ControllerUsuarios();
         }
         return instancia;
     }
-    public static int idUsuario(){
+
+    public static int idUsuario() {
         return ControllerUsuarios.getInstancia().getSession().getId();
     }
-    public void registrarUsuario(Usuario usuario){
-        if(usuarios.stream().filter(user -> user.getUsername().equals(usuario.getUsername()) && user.getPassword().equals(usuario.getPassword())).findFirst().orElse(null)==null){
-            usuarios.add(usuario);
-            System.out.println("No existe");
-        }else{
-            System.out.println("Existe");
+
+    public void registrarUsuario(Usuario usuario) {
+        if(repo.readPorUsername(usuario.getUsername())==null) {
+            repo.save(usuario);
+            System.out.println("Se ha registrado un nuevo usuario");
+
+        } else {
+            System.out.println("Ya existe un usuario con ese username");
         }
     }
 
-    public void iniciarSesion(UsuarioDTO usuario){
-        Usuario user = usuario.buscarUsuario();
-        if(user!=null){
+    public void iniciarSesion(UsuarioDTO usuario) {
+        Usuario user = repo.readPorUsername(usuario.getUsername());
+        if(user!=null && user.getPassword().equals(usuario.getPassword())){
+            System.out.println("Se ha iniciado sesion. Bienvenido " + usuario.getUsername());
             setSession(user);
         }
     }
-
-    public void eliminarUsuario(UsuarioDTO usuario){
-        Usuario user = usuario.buscarUsuario();
-        if(user!=null){
-            usuarios.remove(user);
-        }
-    }
-    public void cerrarSesion(){
+    public void cerrarSesion() {
         session = null;
     }
 }

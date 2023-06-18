@@ -8,7 +8,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class Logger {
-    @Setter @Getter
+    @Setter
+    @Getter
     private String nombreArchivo;
     private TipoLog tipoLog;
 
@@ -16,15 +17,16 @@ public class Logger {
         this.nombreArchivo = nombreArchivo;
     }
 
-    public void registrar(RegistroLog registro){
+    public void registrar(RegistroLog registro) {
         try {
-            tipoLog.registrar(getArchivo(),registro);
+            tipoLog.registrar(getArchivo(), registro);
         } catch (IOException e) {
-            System.out.println("Error en el registro de modificaciones de productos: "+e);
+            System.out.println("Error en el registro de modificaciones de productos: " + e);
         }
     }
-    public void cambiarTipoLog(TipoLog tipoLog){
-        this.tipoLog=tipoLog;
+
+    public void cambiarTipoLog(TipoLog tipoLog) {
+        this.tipoLog = tipoLog;
     }
 
     public PrintWriter getArchivo() throws IOException {

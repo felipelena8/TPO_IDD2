@@ -1,6 +1,5 @@
 package com.example.tpo_idd2;
 
-import config.RedisConnectionPool;
 import controllers.ControllerProductos;
 import controllers.ControllerUsuarios;
 import dtos.UsuarioDTO;
@@ -17,8 +16,8 @@ public class TpoIdd2Application {
     public static void main(String[] args) {
         SpringApplication.run(TpoIdd2Application.class, args);
 
-        Usuario user1 = new Usuario(1,"Felipe","felipelena", "uade1234","Alsina 1663","44967716",CondicionFiscal.EXENTO);
-        Usuario user2 = new Usuario(2,"Felipe","felipelena", "uade1234","Alsina 1664","44967716",CondicionFiscal.EXENTO);
+        Usuario user1 = new Usuario(1, "Felipe", "felipelena", "uade1234", "Alsina 1663", "44967716", CondicionFiscal.EXENTO);
+        Usuario user2 = new Usuario(2, "Felipe", "felipelena", "uade1234", "Alsina 1664", "44967716", CondicionFiscal.EXENTO);
         ControllerUsuarios.getInstancia().registrarUsuario(user1);
         ControllerUsuarios.getInstancia().registrarUsuario(user2);
         ControllerUsuarios.getInstancia().iniciarSesion(new UsuarioDTO("felipelena", "uade1234"));
@@ -27,9 +26,6 @@ public class TpoIdd2Application {
         ControllerProductos.getInstancia().actualizarProducto(new Producto(1, "Sacapuntas", 100));
         ControllerProductos.getInstancia().eliminarProducto(1);
         Carrito carrito = new Carrito(user1);
-        UserRepository rep = new UserRepository();
-        rep.save(user1);
-        System.out.println(rep.read(1));
 
     }
 
