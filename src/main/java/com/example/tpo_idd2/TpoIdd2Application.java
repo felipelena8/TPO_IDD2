@@ -8,6 +8,7 @@ import models.CondicionFiscal;
 import models.Producto;
 import models.Usuario;
 import org.springframework.boot.SpringApplication;
+import repositories.CarritoRepository;
 import repositories.UserRepository;
 
 
@@ -24,9 +25,12 @@ public class TpoIdd2Application {
         ControllerProductos.getInstancia().agregarProducto(new Producto(1, "Sacapuntas", 500));
         ControllerProductos.getInstancia().agregarProducto(new Producto(2, "Lapicera", 30));
         ControllerProductos.getInstancia().actualizarProducto(new Producto(1, "Sacapuntas", 100));
-        ControllerProductos.getInstancia().eliminarProducto(1);
-        Carrito carrito = new Carrito(user1);
-
+        //ControllerProductos.getInstancia().eliminarProducto(2);
+        CarritoRepository repo = new CarritoRepository();
+        Carrito cart = repo.read(ControllerUsuarios.getInstancia().getSession());
+        cart.agregarItem(1,4);
+        cart.agregarItem(2,3);
+        System.out.println(cart);
     }
 
 }

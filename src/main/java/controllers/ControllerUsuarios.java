@@ -3,6 +3,7 @@ package controllers;
 import dtos.UsuarioDTO;
 import lombok.Getter;
 import lombok.Setter;
+import models.Carrito;
 import models.Usuario;
 import repositories.UserRepository;
 
@@ -40,6 +41,7 @@ public class ControllerUsuarios {
 
     public void iniciarSesion(UsuarioDTO usuario) {
         Usuario user = repo.readPorUsername(usuario.getUsername());
+        user.setCarrito(new Carrito(user));
         if(user!=null && user.getPassword().equals(usuario.getPassword())){
             System.out.println("Se ha iniciado sesion. Bienvenido " + usuario.getUsername());
             setSession(user);

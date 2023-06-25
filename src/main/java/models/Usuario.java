@@ -19,7 +19,7 @@ public class Usuario implements Serializable {
     private String password;
     private String direccion;
     private String dni;
-    private Carrito carrito;
+    private Carrito carrito = new Carrito(this);
     private List<Pedido> pedidos;
     private Categoria categoria;
     private List<MedioPago> mediosPago;
@@ -34,8 +34,8 @@ public class Usuario implements Serializable {
         this.direccion = direccion;
         this.dni = dni;
         this.condicionFiscal = condicionFiscal;
+        this.mediosPago = new ArrayList<>();
+        this.pedidos = new ArrayList<>();
 
-        mediosPago = new ArrayList<>();
-        pedidos = new ArrayList<>();
     }
 }

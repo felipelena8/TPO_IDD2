@@ -11,4 +11,9 @@ public class Item {
         return producto.getPrecio() * cantidad;
     }
 
+    public Item(Producto producto, int cantidad) {
+        this.producto = producto;
+        this.cantidad = cantidad;
+    }
+
 }

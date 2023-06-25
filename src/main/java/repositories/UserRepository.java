@@ -1,6 +1,7 @@
 package repositories;
 
 import config.ObjectDBConnectionPool;
+import models.Carrito;
 import models.Usuario;
 
 import javax.persistence.EntityManager;
@@ -32,7 +33,6 @@ public class UserRepository {
         Usuario user =null;
         try {
             user= (Usuario) query.getResultList().get(0);
-
         }catch (Exception e){
             System.out.println("No hay ningun usuario con username "+ username);
         }
