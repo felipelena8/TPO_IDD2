@@ -9,6 +9,7 @@ import javax.persistence.Query;
 public class UserRepository {
 
     public void save(Usuario usuario) {
+        usuario.setCarrito(null);
         EntityManager em = ObjectDBConnectionPool.getConnection();
         em.getTransaction().begin();
         em.persist(usuario);

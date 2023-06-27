@@ -26,9 +26,9 @@ public class TpoIdd2Application {
         // TODO: hay un problema al crear los usuarios, objectdb no puede guardar el carrito como una clase, tiene que ser un tipo de dato soportado
         // TODO: el usuario felipelena se pudo guardar porque (lo mas probable) es que se haya guardado en la db antes de que se agregara el atributo carrito a la clase Usuario
         ControllerUsuarios.getInstancia().registrarUsuario(user1);
-        /* ControllerUsuarios.getInstance().registrarUsuario(user2);
-        ControllerUsuarios.getInstance().registrarUsuario(user3);
-        ControllerUsuarios.getInstance().registrarUsuario(user4);*/
+        ControllerUsuarios.getInstancia().registrarUsuario(user2);
+        ControllerUsuarios.getInstancia().registrarUsuario(user3);
+        ControllerUsuarios.getInstancia().registrarUsuario(user4);
 
         ControllerUsuarios.getInstancia().iniciarSesion(new UsuarioDTO("felipelena", "uade1234"));
         ControllerProductos.getInstancia().agregarProducto(new Producto(1, "Sacapuntas", 500));

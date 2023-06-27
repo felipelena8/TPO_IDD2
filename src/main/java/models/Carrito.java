@@ -65,35 +65,6 @@ public class Carrito implements Serializable {
         pool.close();
     }
 
-    public void decrementarCantidadProducto(int idProducto, int cantidad) {
-        JedisPool pool = RedisConnectionPool.getInstancia().getConnection();
-        Jedis jedis = pool.getResource();
-        Long indice = jedis.lpos(usuario.getId() + "_cart:productos", Integer.toString(idProducto));
-        if (indice != null) {
-            int cantVieja = Integer.parseInt(jedis.lindex(usuario.getId() + "_cart:cantidad", indice));
-            if (cantVieja - cantidad <= 0) {
-                jedis.lrem(usuario.getId() + "_cart:productos", 0, Integer.toString(idProducto));
-                jedis.lset(usuario.getId() + "_cart:cantidad", indice, "delete");
-                jedis.lrem(usuario.getId() + "_cart:cantidad", 0, "delete");
-            } else {
-                jedis.lset(usuario.getId() + "_cart:cantidad", indice, Integer.toString(cantVieja - cantidad));
-            }
-        }
-
-        pool.close();
-    }
-
-    public void incrementarCantidadProducto(int idProducto, int cantidad) {
-        JedisPool pool = RedisConnectionPool.getInstancia().getConnection();
-        Jedis jedis = pool.getResource();
-        Long indice = jedis.lpos(usuario.getId() + "_cart:productos", Integer.toString(idProducto));
-        if (indice != null) {
-            int cantVieja = Integer.parseInt(jedis.lindex(usuario.getId() + "_cart:cantidad", indice));
-            jedis.lset(usuario.getId() + "_cart:cantidad", indice, Integer.toString(cantVieja + cantidad));
-
-        }
-    }
-
     public void vaciar() {
         JedisPool pool = RedisConnectionPool.getInstancia().getConnection();
         Jedis jedis = pool.getResource();
