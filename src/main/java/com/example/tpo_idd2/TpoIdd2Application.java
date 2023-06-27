@@ -33,13 +33,30 @@ public class TpoIdd2Application {
         ControllerUsuarios.getInstancia().iniciarSesion(new UsuarioDTO("felipelena", "uade1234"));
         ControllerProductos.getInstancia().agregarProducto(new Producto(1, "Sacapuntas", 500));
         ControllerProductos.getInstancia().agregarProducto(new Producto(2, "Lapicera", 30));
+        ControllerProductos.getInstancia().agregarProducto(new Producto(3, "Regla", 40));
         ControllerProductos.getInstancia().actualizarProducto(new Producto(1, "Sacapuntas", 100));
         //ControllerProductos.getInstancia().eliminarProducto(2);
         CarritoRepository repo = new CarritoRepository();
         Carrito cart = repo.read(ControllerUsuarios.getInstancia().getSession());
-        cart.agregarItem(1,4);
+        cart.vaciar();
+        cart.agregarItem(1,5);
+        cart.agregarItem(3,7);
         cart.agregarItem(2,3);
+        cart.eliminarItem(2);
         System.out.println(cart);
-    }
+        cart.estadoAnterior();
+        System.out.println(cart);
+        cart.estadoPosterior();
+        System.out.println(cart);
+        cart.agregarItem(2,4);
+        System.out.println(cart);
+        cart.vaciar();
+        System.out.println(cart);
+        cart.estadoPosterior();
+        cart.estadoPosterior();
+        cart.estadoPosterior();
+        cart.eliminarItem(2);
+        cart.eliminarItem(2);
 
+    }
 }

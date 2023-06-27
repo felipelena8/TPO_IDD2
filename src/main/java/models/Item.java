@@ -16,4 +16,11 @@ public class Item {
         this.cantidad = cantidad;
     }
 
+    @Override
+    public String toString() {
+        return "Item{" +
+                "producto=" + producto +
+                ", cantidad=" + cantidad +
+                "}\n";
+    }
 }

@@ -41,44 +41,62 @@ public class Carrito implements Serializable {
         }
         Producto prod = ControllerProductos.getInstancia().buscarProducto(idProducto);
         if (prod == null) {
+            System.out.println("No existe el producto");
             return;
         }
-        Item itemCarrito = items.stream().filter(item -> item.getProducto().getId() == idProducto).findFirst().orElse(null);
-        if (itemCarrito == null) {
+        Item existe = items.stream().filter(item -> item.getProducto().getId()==idProducto).findFirst().orElse(null);
+        if(existe==null){
             items.add(new Item(prod, cantidad));
-        } else {
-            itemCarrito.setCantidad(cantidad);
+        }else{
+            existe.setCantidad(existe.getCantidad()+cantidad);
         }
-        repo.save(this);
+
+        repo.agregarItem(idProducto, cantidad, getUsuario().getId());
     }
 
     public void eliminarItem(int idProducto) {
-        JedisPool pool = RedisConnectionPool.getInstancia().getConnection();
-        Jedis jedis = pool.getResource();
-        Long indice = jedis.lpos(usuario.getId() + "_cart:productos", Integer.toString(idProducto));
-        if (indice != null) {
-            jedis.lrem(usuario.getId() + "_cart:productos", 0, Integer.toString(idProducto));
-            jedis.lset(usuario.getId() + "_cart:cantidad", indice, "delete");
-            jedis.lrem(usuario.getId() + "_cart:cantidad", 0, "delete");
+        Producto prod = ControllerProductos.getInstancia().buscarProducto(idProducto);
+        if (prod == null) {
+            System.out.println("No existe el producto");
+            return;
         }
+        if(!items.stream().map(item -> item.getProducto()).anyMatch(producto -> producto.getId()==idProducto)){
+            System.out.println("No existe el producto en el carrito");
+            return;
+        }
+        this.items = items.stream().filter(item -> item.getProducto().getId()!=idProducto).toList();//eliminacion de memoria
+        repo.eliminarProducto(idProducto, usuario.getId());
+    }
 
-        pool.close();
+    public void estadoAnterior(){
+        if(repo.operacion(usuario.getId())==0){
+            System.out.println("Ya no hay estados anteriores");
+            return;
+        }
+        repo.decrementarOperacion(usuario.getId());
+        repo.read(usuario);
+    }
+
+    public void estadoPosterior(){
+        if(repo.operacion(usuario.getId())==repo.largoCarrito(usuario.getId())){
+            System.out.println("Ya no hay estados posteriores");
+            return;
+        }
+        repo.incrementarOperacion(usuario.getId());
+        repo.read(usuario);
     }
 
     public void vaciar() {
-        JedisPool pool = RedisConnectionPool.getInstancia().getConnection();
-        Jedis jedis = pool.getResource();
-        jedis.del(usuario.getId() + "_cart:productos");
-        jedis.del(usuario.getId() + "_cart:cantidad");
-        pool.close();
+        items = new ArrayList<>();
+        getRepo().limpiarCarrito(getUsuario().getId());
     }
 
     public boolean estaVacio() {
-        JedisPool pool = RedisConnectionPool.getInstancia().getConnection();
-        Jedis jedis = pool.getResource();
-        Long size = jedis.llen(usuario.getId() + "_cart:productos");
-        pool.close();
-        return size == 0;
+//        JedisPool pool = RedisConnectionPool.getInstancia().getConnection();
+//        Jedis jedis = pool.getResource();
+//        Long size = jedis.llen(usuario.getId() + "_cart:productos");
+//        pool.close();
+        return items.size()== 0;
     }
 
     @Override
