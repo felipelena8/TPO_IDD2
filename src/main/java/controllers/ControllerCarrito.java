@@ -7,13 +7,14 @@ import repositories.CarritoRepository;
 public class ControllerCarrito {
     private CarritoRepository repo;
     private static ControllerCarrito instancia = null;
-    private ControllerCarrito(){
+
+    private ControllerCarrito() {
         repo = new CarritoRepository();
     }
 
     public static ControllerCarrito getInstancia() {
-        if(instancia==null){
-            instancia=new ControllerCarrito();
+        if (instancia == null) {
+            instancia = new ControllerCarrito();
         }
         return instancia;
     }

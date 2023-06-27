@@ -9,18 +9,27 @@ import models.Producto;
 import models.Usuario;
 import org.springframework.boot.SpringApplication;
 import repositories.CarritoRepository;
-import repositories.UserRepository;
-
 
 public class TpoIdd2Application {
 
     public static void main(String[] args) {
         SpringApplication.run(TpoIdd2Application.class, args);
 
-        Usuario user1 = new Usuario(1, "Felipe", "felipelena", "uade1234", "Alsina 1663", "44967716", CondicionFiscal.EXENTO);
-        Usuario user2 = new Usuario(2, "Felipe", "felipelena", "uade1234", "Alsina 1664", "44967716", CondicionFiscal.EXENTO);
+        // Creamos 4 usuarios
+        Usuario user1 = new Usuario(1, "Felipe Costa", "felipelena", "uade1234", "Lima 757", "44967716", CondicionFiscal.EXENTO);
+        Usuario user2 = new Usuario(2, "Lucas Munoz", "lucasmunoz", "uade1234", "Lima 757", "38000000", CondicionFiscal.NO_ALCANZADO);
+        Usuario user3 = new Usuario(3, "Francisco Fontana", "franciscofontana", "uade1234", "Lima 757", "44000000", CondicionFiscal.AUTONOMO);
+        Usuario user4 = new Usuario(4, "Ignacio Cesarani", "ignaciocesarani", "uade1234", "Lima 757", "43000000", CondicionFiscal.MONOTRIBUTISTA);
+
+        // Se guardan los usuarios creados en la base de datos de ObjectDB
+
+        // TODO: hay un problema al crear los usuarios, objectdb no puede guardar el carrito como una clase, tiene que ser un tipo de dato soportado
+        // TODO: el usuario felipelena se pudo guardar porque (lo mas probable) es que se haya guardado en la db antes de que se agregara el atributo carrito a la clase Usuario
         ControllerUsuarios.getInstancia().registrarUsuario(user1);
-        ControllerUsuarios.getInstancia().registrarUsuario(user2);
+        /* ControllerUsuarios.getInstance().registrarUsuario(user2);
+        ControllerUsuarios.getInstance().registrarUsuario(user3);
+        ControllerUsuarios.getInstance().registrarUsuario(user4);*/
+
         ControllerUsuarios.getInstancia().iniciarSesion(new UsuarioDTO("felipelena", "uade1234"));
         ControllerProductos.getInstancia().agregarProducto(new Producto(1, "Sacapuntas", 500));
         ControllerProductos.getInstancia().agregarProducto(new Producto(2, "Lapicera", 30));

@@ -1,7 +1,6 @@
 package logger;
 
 import java.io.PrintWriter;
-
 public class DeleteLog implements TipoLog {
     @Override
     public void registrar(PrintWriter archivo, RegistroLog registro) {

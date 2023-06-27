@@ -11,6 +11,7 @@ public class ControllerUsuarios {
     private UserRepository repo = new UserRepository();
 
     private static ControllerUsuarios instancia = null;
+
     @Getter
     @Setter
     private Usuario session;
@@ -33,7 +34,6 @@ public class ControllerUsuarios {
         if(repo.readPorUsername(usuario.getUsername())==null) {
             repo.save(usuario);
             System.out.println("Se ha registrado un nuevo usuario");
-
         } else {
             System.out.println("Ya existe un usuario con ese username");
         }
