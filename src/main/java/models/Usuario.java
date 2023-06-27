@@ -36,6 +36,5 @@ public class Usuario implements Serializable {
         this.condicionFiscal = condicionFiscal;
         this.mediosPago = new ArrayList<>();
         this.pedidos = new ArrayList<>();
-
     }
 }

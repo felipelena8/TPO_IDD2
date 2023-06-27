@@ -17,6 +17,7 @@ public class Carrito implements Serializable {
     private List<Item> items;
     private Usuario usuario;
     private CarritoRepository repo = new CarritoRepository();
+
     public Carrito(Usuario usuario) {
         items = new ArrayList<>();
         this.usuario = usuario;
@@ -35,17 +36,17 @@ public class Carrito implements Serializable {
     }
 
     public void agregarItem(int idProducto, int cantidad) {
-        if(cantidad<=0){
+        if (cantidad <= 0) {
             return;
         }
         Producto prod = ControllerProductos.getInstancia().buscarProducto(idProducto);
-        if(prod==null){
+        if (prod == null) {
             return;
         }
-        Item itemCarrito = items.stream().filter(item -> item.getProducto().getId()==idProducto).findFirst().orElse(null);
-        if(itemCarrito==null){
-            items.add(new Item(prod,cantidad));
-        }else{
+        Item itemCarrito = items.stream().filter(item -> item.getProducto().getId() == idProducto).findFirst().orElse(null);
+        if (itemCarrito == null) {
+            items.add(new Item(prod, cantidad));
+        } else {
             itemCarrito.setCantidad(cantidad);
         }
         repo.save(this);

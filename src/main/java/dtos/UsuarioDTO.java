@@ -1,8 +1,6 @@
 package dtos;
 
-import controllers.ControllerUsuarios;
 import lombok.Data;
-import models.Usuario;
 
 @Data
 public class UsuarioDTO {
