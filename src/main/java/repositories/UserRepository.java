@@ -8,26 +8,27 @@ import javax.persistence.Query;
 
 public class UserRepository {
 
-    public void save(Usuario usuario) {
-        usuario.setCarrito(null);
-        EntityManager em = ObjectDBConnectionPool.getConnection();
-        em.getTransaction().begin();
-        em.persist(usuario);
-        em.getTransaction().commit();
+    private EntityManager em = ObjectDBConnectionPool.getConnection();
+
+    public void closeConnection(){
         em.close();
     }
 
+    public void save(Usuario usuario) {
+        usuario.setCarrito(null);
+        em.getTransaction().begin();
+        em.persist(usuario);
+        em.getTransaction().commit();
+    }
+
     public Usuario readPorId(int id) {
-        EntityManager em = ObjectDBConnectionPool.getConnection();
         Query query = em.createQuery("SELECT u FROM Usuario u WHERE u.id = :id");
         query.setParameter("id", id);
         Usuario user = (Usuario) query.getResultList().get(0);
-        em.close();
         return user;
     }
 
     public Usuario readPorUsername(String username) {
-        EntityManager em = ObjectDBConnectionPool.getConnection();
         Query query = em.createQuery("SELECT u FROM Usuario u WHERE u.username = :username");
         query.setParameter("username", username);
         Usuario user = null;
@@ -36,7 +37,6 @@ public class UserRepository {
         } catch (Exception e) {
             System.out.println("No hay ningun usuario con username " + username);
         }
-        em.close();
         return user;
     }
 
