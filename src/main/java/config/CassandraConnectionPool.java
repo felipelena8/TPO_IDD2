@@ -3,7 +3,11 @@ package config;
 import com.datastax.oss.driver.api.core.CqlSession;
 import com.datastax.oss.driver.api.core.cql.ResultSet;
 import com.datastax.oss.driver.api.core.cql.Row;
+import dtos.LogDTO;
+
 import java.nio.file.Paths;
+import java.sql.Timestamp;
+import java.util.Date;
 
 public class CassandraConnectionPool {
 
@@ -30,28 +34,33 @@ public class CassandraConnectionPool {
                 .build();
     }
 
-    public String getValue(String key) {
+    public void borrarDatosTabla(){
         if(session==null)
             connect();
 
-        String value = "";
+        session.execute("truncate logs.producto_logs;");
 
-        // Execute the Query to fetch the value for a specific key
-        ResultSet rs = session.execute("select * from logs.lista_reproduccion");
-        Row row = rs.one();
-
-        if (row != null) {
-            value = row.getString("album");
-        } else {
-            System.out.println("Error en la conexion.");
-        }
-
-        return value;
     }
-/*
-    public static void main(String[] args){
-        String value = getValue("key");
-        System.out.println("value: " + value);
 
-    }*/
+    public void crearRegistroUPDATE(LogDTO registroDTO){
+        if(session==null)
+            connect();
+
+        session.execute("INSERT INTO logs.producto_logs(tipo_registro, codigo, prev_precio, prev_stock, prev_descripcion, new_precio, new_stock, new_descripcion, datetime ) VALUES ( 'UPDATE', " + registroDTO.getCodigo() + ", " + registroDTO.getPrev_precio() + ", " + registroDTO.getPrev_stock() + ", '" + registroDTO.getPrev_descripcion() + "', " + registroDTO.getNew_precio() + ", " + registroDTO.getNew_stock() + ", '" + registroDTO.getNew_descripcion() + "', " + "toTimeStamp(now()));");
+
+    }
+
+    public void crearRegistroCREATE(LogDTO registroDTO){
+        if(session==null)
+            connect();
+
+        session.execute("INSERT INTO logs.producto_logs(tipo_registro, codigo, new_precio, new_stock, new_descripcion, datetime ) VALUES ( 'CREATE', " + registroDTO.getCodigo() + ", " + registroDTO.getNew_precio() + ", " + registroDTO.getNew_stock() + ", '" + registroDTO.getNew_descripcion() + "', " + "toTimeStamp(now()));");
+    }
+
+    public void crearRegistroDELETE(LogDTO registroDTO){
+        if(session==null)
+            connect();
+
+        session.execute("INSERT INTO logs.producto_logs(tipo_registro, codigo, prev_precio, prev_stock, prev_descripcion, datetime ) VALUES ( 'DELETE', " + registroDTO.getCodigo() + ", " + registroDTO.getPrev_precio() + ", " + registroDTO.getPrev_stock() + ", '" + registroDTO.getPrev_descripcion() + "', " + "toTimeStamp(now()));");
+    }
 }
