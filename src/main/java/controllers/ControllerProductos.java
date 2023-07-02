@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ControllerProductos {
     private static ControllerProductos instancia = null;
-    private final Logger logger = new Logger("logProductos.txt");
+    private final Logger logger = new Logger();
     private List<Producto> productos;
 
     private ControllerProductos() {
