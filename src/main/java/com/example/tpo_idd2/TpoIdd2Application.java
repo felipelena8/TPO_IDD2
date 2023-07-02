@@ -14,7 +14,6 @@ import org.springframework.boot.autoconfigure.data.cassandra.CassandraDataAutoCo
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import repositories.CarritoRepository;
 
 
@@ -25,9 +24,10 @@ public class TpoIdd2Application {
     public static void main(String[] args) {
         SpringApplication.run(TpoIdd2Application.class, args);
 
+        // borrado de datos viejos de Cassandra
+        System.out.println("\nSe inicializa un log vacio");
         CassandraConnectionPool pool = CassandraConnectionPool.getInstancia();
-        String valor = pool.getValue("asd");
-        System.out.println("DIOS POR FAVOR: " + valor);
+        pool.borrarDatosTabla();
 
 
         // Creamos 4 usuarios
@@ -56,20 +56,18 @@ public class TpoIdd2Application {
 
         // Se crean 3 productos: Sacapuntas, Lapicera y Regla
         System.out.println("Se crean 3 productos: Sacapuntas, Lapicera y Regla");
-        ControllerProductos.getInstancia().agregarProducto(new Producto(1, "Sacapuntas", 500));
-        ControllerProductos.getInstancia().agregarProducto(new Producto(2, "Lapicera", 30));
-        ControllerProductos.getInstancia().agregarProducto(new Producto(3, "Regla", 40));
+        ControllerProductos.getInstancia().agregarProducto(new Producto(1, "Sacapuntas", 500, 200));
+        ControllerProductos.getInstancia().agregarProducto(new Producto(2, "Lapicera", 30, 100));
+        ControllerProductos.getInstancia().agregarProducto(new Producto(3, "Regla", 40, 250));
+        ControllerProductos.getInstancia().agregarProducto(new Producto(4, "Lapiz", 10, 50));
 
         System.out.println("");
 
         // Se actualiza el precio del sacapuntas 500 -> 100
         System.out.println("Se actualiza el precio del sacapuntas 500 -> 100");
-        ControllerProductos.getInstancia().actualizarProducto(new Producto(1, "Sacapuntas", 100));
+        ControllerProductos.getInstancia().actualizarProducto(new Producto(1, "Sacapuntas", 100, 250));
 
         System.out.println("");
-
-        //ControllerProductos.getInstancia().eliminarProducto(2);
-
 
         CarritoRepository repo = new CarritoRepository();
         Carrito cart = repo.read(ControllerUsuarios.getInstancia().getSession());
@@ -78,7 +76,7 @@ public class TpoIdd2Application {
         System.out.println("Se agrega Sacapuntas al carrito");
         cart.agregarItem(1,5);
         System.out.println("Se agrega Regla al carrito");
-        cart.agregarItem(3,7);
+        cart.agregarItem(3 ,7);
         System.out.println("Se agrega Lapicera al carrito");
         cart.agregarItem(2,3);
         System.out.println("Se elimina Lapicera del carrito\n");
@@ -86,13 +84,14 @@ public class TpoIdd2Application {
         System.out.println(cart);
 
         System.out.println("");
-/*
+
         System.out.println("Se lleva al carrito al estado anterior\n");
         cart.estadoAnterior();
         System.out.println(cart);
 
         System.out.println("");
 
+        /*
         cart.estadoPosterior();
         System.out.println(cart);
         cart.agregarItem(2,4);
@@ -104,6 +103,6 @@ public class TpoIdd2Application {
         cart.estadoPosterior();
         cart.eliminarItem(2);
         cart.eliminarItem(2);
-*/
+        */
     }
 }

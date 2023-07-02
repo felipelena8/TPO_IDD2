@@ -18,11 +18,7 @@ public class Logger {
     }
 
     public void registrar(RegistroLog registro) {
-        try {
-            tipoLog.registrar(getArchivo(), registro);
-        } catch (IOException e) {
-            System.out.println("Error en el registro de modificaciones de productos: " + e);
-        }
+        tipoLog.registrar(registro);
     }
 
     public void cambiarTipoLog(TipoLog tipoLog) {

@@ -1,11 +1,23 @@
 package logger;
 
-import java.io.PrintWriter;
+import config.CassandraConnectionPool;
+import dtos.LogDTO;
 
 public class UpdateLog implements TipoLog {
     @Override
-    public void registrar(PrintWriter archivo, RegistroLog registro) {
-        archivo.println("UPDATE: Estado Anterior[" + registro.getEstadoAnterior().productoLog() + "] -> Nuevo Estado[" + registro.getNuevoEstado().productoLog() + "]");
-        archivo.close();
+    public void registrar(RegistroLog registro) {
+        LogDTO logDTO = new LogDTO(
+                "UPDATE",
+                registro.getNuevoEstado().getId(),
+                registro.getEstadoAnterior().getPrecio(),
+                registro.getEstadoAnterior().getStock(),
+                registro.getEstadoAnterior().getDescripcion(),
+                registro.getNuevoEstado().getPrecio(),
+                registro.getNuevoEstado().getStock(),
+                registro.getNuevoEstado().getDescripcion()
+        );
+
+        CassandraConnectionPool pool = CassandraConnectionPool.getInstancia();
+        pool.crearRegistroUPDATE(logDTO);
     }
 }
