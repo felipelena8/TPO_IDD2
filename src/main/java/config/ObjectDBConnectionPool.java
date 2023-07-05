@@ -18,7 +18,6 @@ public class ObjectDBConnectionPool {
 
     }
 
-
     public static ObjectDBConnectionPool getInstancia() {
         if (pool == null) {
             pool = new ObjectDBConnectionPool();
