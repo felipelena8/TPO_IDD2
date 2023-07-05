@@ -25,7 +25,6 @@ public class BotCategoriaUsuario {
                 user.setTiempoEnDia(new Tiempo());
             }
             em.getTransaction().commit();
-            em.close();
         }
     };
     private TimerTask tarea2 = new TimerTask() {//Se cuenta el tiempo en sesion y se va cambiando la categoria segun corresponda
@@ -45,7 +44,6 @@ public class BotCategoriaUsuario {
                     usuario.setCategoria(Categoria.LOW);
                 }
                 em.getTransaction().commit();
-                em.close();
                 System.out.println(repo.readPorUsername(usuario.getUsername()));
             }
 

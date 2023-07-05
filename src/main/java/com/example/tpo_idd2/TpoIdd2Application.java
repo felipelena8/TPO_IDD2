@@ -16,7 +16,7 @@ public class TpoIdd2Application {
 
     public static void main(String[] args) {
         SpringApplication.run(TpoIdd2Application.class, args);
-/*        // Creamos 4 usuarios
+        // Creamos 4 usuarios
         System.out.println("\nSe crean 4 usuarios: -Felipe Costa- -Lucas Muñoz- -Francisco fontana- -Ignacio Cesarani-");
         Usuario user1 = new Usuario(1, "Felipe Costa", "felipelena", "uade1234", "Lima 757", "44967716", CondicionFiscal.EXENTO);
         Usuario user2 = new Usuario(2, "Lucas Munoz", "lucasmunoz", "uade1234", "Lima 757", "38000000", CondicionFiscal.NO_ALCANZADO);
@@ -47,12 +47,7 @@ public class TpoIdd2Application {
         //Producto prod1 = ControllerProductos.getInstancia().buscarProducto(1);
         prod1.agregarComentario(new Comentario(ControllerUsuarios.getInstancia().getSession(), "hola"));
         prod1.agregarVideoUrl("Video1.png");
-        prod1.agregarVideoUrl("video2.png");*/
+        prod1.agregarVideoUrl("video2.png");
 
-        ControllerUsuarios.getInstancia().iniciarSesion(new UsuarioDTO("felipelena", "uade1234"));
-        Usuario sesion = ControllerUsuarios.getInstancia().getSession();
-        Producto prod = ControllerProductos.getInstancia().buscarProducto(1);
-        prod.agregarComentario(new Comentario(sesion, "Anda bien"));
-        System.out.println(ControllerProductos.getInstancia().buscarProducto(1));
     }
 }
