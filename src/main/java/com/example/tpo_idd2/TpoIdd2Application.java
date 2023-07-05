@@ -4,10 +4,7 @@ import config.CassandraConnectionPool;
 import controllers.ControllerProductos;
 import controllers.ControllerUsuarios;
 import dtos.UsuarioDTO;
-import models.Carrito;
-import models.CondicionFiscal;
-import models.Producto;
-import models.Usuario;
+import models.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.data.cassandra.CassandraDataAutoConfiguration;
@@ -19,11 +16,7 @@ public class TpoIdd2Application {
 
     public static void main(String[] args) {
         SpringApplication.run(TpoIdd2Application.class, args);
-
-        CassandraConnectionPool pool = CassandraConnectionPool.getInstancia();
-        pool.borrarDatosTabla();
-
-        // Creamos 4 usuarios
+/*        // Creamos 4 usuarios
         System.out.println("\nSe crean 4 usuarios: -Felipe Costa- -Lucas Muñoz- -Francisco fontana- -Ignacio Cesarani-");
         Usuario user1 = new Usuario(1, "Felipe Costa", "felipelena", "uade1234", "Lima 757", "44967716", CondicionFiscal.EXENTO);
         Usuario user2 = new Usuario(2, "Lucas Munoz", "lucasmunoz", "uade1234", "Lima 757", "38000000", CondicionFiscal.NO_ALCANZADO);
@@ -44,61 +37,19 @@ public class TpoIdd2Application {
         // Se inicia sesion en el usuario Felipe Costa
         System.out.println("Se inicia sesion en el usuario Felipe Costa");
         ControllerUsuarios.getInstancia().iniciarSesion(new UsuarioDTO("felipelena", "uade1234"));
-        System.out.println(ControllerUsuarios.getInstancia().getSession());
-
-        System.out.println("");
 
         // Se crean 3 productos: Sacapuntas, Lapicera y Regla
         System.out.println("Se crean 3 productos: Sacapuntas, Lapicera y Regla");
-        ControllerProductos.getInstancia().agregarProducto(new Producto(1, "Sacapuntas", 500, 100));
+        Producto prod1 = new Producto(1, "Sacapuntas", 500, 100);
+        ControllerProductos.getInstancia().agregarProducto(prod1);
         ControllerProductos.getInstancia().agregarProducto(new Producto(2, "Lapicera", 30, 100));
         ControllerProductos.getInstancia().agregarProducto(new Producto(3, "Regla", 40, 100));
+        //Producto prod1 = ControllerProductos.getInstancia().buscarProducto(1);
+        prod1.agregarComentario(new Comentario(ControllerUsuarios.getInstancia().getSession(), "hola"));
+        prod1.agregarVideoUrl("Video1.png");
+        prod1.agregarVideoUrl("video2.png");*/
 
-        System.out.println("");
-
-        // Se actualiza el precio del sacapuntas 500 -> 100
-        System.out.println("Se actualiza el precio del sacapuntas 500 -> 100");
-        ControllerProductos.getInstancia().actualizarProducto(new Producto(1, "Sacapuntas", 100, 100));
-
-        System.out.println("");
-
-        //ControllerProductos.getInstancia().eliminarProducto(2);
-
-        CarritoRepository repo = new CarritoRepository();
-        Carrito cart = repo.read(ControllerUsuarios.getInstancia().getSession());
-        System.out.println("Se crea un carrito vacio");
-        cart.vaciar();
-        System.out.println("Se agrega Sacapuntas al carrito");
-        cart.agregarItem(1, 5);
-        System.out.println("Se agrega Regla al carrito");
-        cart.agregarItem(3, 7);
-        System.out.println("Se agrega Lapicera al carrito");
-        cart.agregarItem(2, 3);
-        System.out.println("Se elimina Lapicera del carrito\n");
-        cart.eliminarItem(2);
-        System.out.println(cart);
-
-        System.out.println("");
-        System.out.println("Se lleva al carrito al estado anterior\n");
-        cart.estadoAnterior();
-        System.out.println(cart);
-
-        System.out.println("");
-/*
-        cart.estadoPosterior();
-        System.out.println(cart);
-        cart.agregarItem(2, 4);
-        System.out.println(cart);
-        cart.vaciar();
-        System.out.println(cart);
-        cart.estadoPosterior();
-        cart.estadoPosterior();
-        cart.estadoPosterior();
-        cart.eliminarItem(2);
-        cart.eliminarItem(2);
-        UserRepository repo = new UserRepository();
-        System.out.println(repo.read());
-
- */
+        
+        System.out.println(ControllerProductos.getInstancia().buscarProducto(1));
     }
 }

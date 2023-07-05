@@ -10,11 +10,7 @@ import java.util.List;
 
 public class UserRepository {
     @Getter
-    private EntityManager em = ObjectDBConnectionPool.getConnection();
-
-    public void closeConnection(){
-        em.close();
-    }
+    private EntityManager em = ObjectDBConnectionPool.getInstancia().getConnection();
 
     public void save(Usuario usuario) {
         em.getTransaction().begin();
@@ -23,7 +19,7 @@ public class UserRepository {
     }
 
 
-    public List<Usuario> read(){
+    public List<Usuario> readAll(){
         Query query = em.createQuery("SELECT u FROM Usuario u");
         List<Usuario>  usuarios = query.getResultList();
         return  usuarios;

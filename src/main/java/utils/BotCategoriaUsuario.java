@@ -1,11 +1,13 @@
 package utils;
 
+import config.ObjectDBConnectionPool;
 import controllers.ControllerUsuarios;
 import lombok.Getter;
 import models.Categoria;
 import models.Usuario;
 import repositories.UserRepository;
 
+import javax.persistence.EntityManager;
 import java.util.*;
 
 public class BotCategoriaUsuario {
@@ -15,13 +17,15 @@ public class BotCategoriaUsuario {
         @Override
         public void run() {
             UserRepository repo = ControllerUsuarios.getInstancia().getRepo();
-            List<Usuario> usuarios = repo.read();
-            repo.getEm().getTransaction().begin();
+            List<Usuario> usuarios = repo.readAll();
+            EntityManager em = ObjectDBConnectionPool.getInstancia().getConnection();
+                    em.getTransaction().begin();
             for(Usuario user:usuarios){
                 user.setCategoria(Categoria.LOW);
                 user.setTiempoEnDia(new Tiempo());
             }
-            repo.getEm().getTransaction().commit();
+            em.getTransaction().commit();
+            em.close();
         }
     };
     private TimerTask tarea2 = new TimerTask() {//Se cuenta el tiempo en sesion y se va cambiando la categoria segun corresponda
@@ -30,7 +34,8 @@ public class BotCategoriaUsuario {
             UserRepository repo = ControllerUsuarios.getInstancia().getRepo();
             Usuario usuario= ControllerUsuarios.getInstancia().getSession();
             if(usuario!=null){
-                repo.getEm().getTransaction().begin();
+                EntityManager em = ObjectDBConnectionPool.getInstancia().getConnection();
+                em.getTransaction().begin();
                 usuario.getTiempoEnDia().sumarMilisegundos(periodo);
                 if(usuario.getTiempoEnDia().getMinutos()>=7){
                     usuario.setCategoria(Categoria.TOP);
@@ -39,7 +44,8 @@ public class BotCategoriaUsuario {
                 }else{
                     usuario.setCategoria(Categoria.LOW);
                 }
-                repo.getEm().getTransaction().commit();
+                em.getTransaction().commit();
+                em.close();
                 System.out.println(repo.readPorUsername(usuario.getUsername()));
             }
 

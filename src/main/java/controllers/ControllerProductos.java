@@ -2,17 +2,17 @@ package controllers;
 
 import logger.*;
 import models.Producto;
+import repositories.ProductoRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ControllerProductos {
     private static ControllerProductos instancia = null;
     private final Logger logger = new Logger();
-    private List<Producto> productos;
+    private final ProductoRepository repo;
 
     private ControllerProductos() {
-        productos = new ArrayList<>();
+        repo = new ProductoRepository();
     }
 
     public static ControllerProductos getInstancia() {
@@ -21,19 +21,24 @@ public class ControllerProductos {
         }
         return instancia;
     }
+    public List<Producto> productos(){
+        return repo.readAll();
+    }
 
     public void agregarProducto(Producto producto) {
         if (buscarProducto(producto.getId()) == null) {
-            productos.add(producto);
+            repo.save(producto);
             logger.cambiarTipoLog(new CreateLog());
             logger.registrar(new RegistroLog(producto));
+        }else{
+            System.out.println("Ya existe un producto con el codigo "+producto.getId());
         }
     }
 
     public void eliminarProducto(int id) {
         Producto producto = buscarProducto(id);
         if (producto != null) {
-            productos.remove(producto);
+            repo.delete(producto);
             logger.cambiarTipoLog(new DeleteLog());
             logger.registrar(new RegistroLog(producto));
         }
@@ -42,6 +47,10 @@ public class ControllerProductos {
     public void actualizarProducto(Producto producto) {
         Producto prodViejo = buscarProducto(producto.getId());
         if (prodViejo != null) {
+            //TODO aca llega
+//            System.out.println("Producto: " + producto);
+//            System.out.println("Producto viejo: " + prodViejo);
+            repo.update(prodViejo,producto);
             logger.cambiarTipoLog(new UpdateLog());
             logger.registrar(new RegistroLog(prodViejo, producto));
         }
@@ -49,6 +58,6 @@ public class ControllerProductos {
     }
 
     public Producto buscarProducto(int id) {
-        return productos.stream().filter(producto -> producto.getId() == id).findFirst().orElse(null);
+        return repo.readPorId(id);
     }
 }

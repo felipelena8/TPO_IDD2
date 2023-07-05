@@ -6,23 +6,23 @@ import javax.persistence.Persistence;
 
 public class ObjectDBConnectionPool {
     private static EntityManagerFactory emf =
-            Persistence.createEntityManagerFactory("usuarios.odb");//objectdb:$objectdb/db/points
+            Persistence.createEntityManagerFactory("bd.odb");
+
     private static ObjectDBConnectionPool pool;
+
+    public EntityManager getConnection() {
+        return emf.createEntityManager();
+    }
 
     private ObjectDBConnectionPool() {
 
     }
 
-    public static EntityManager getConnection() {
-        return emf.createEntityManager();
-    }
 
-    public ObjectDBConnectionPool getInstancia() {
+    public static ObjectDBConnectionPool getInstancia() {
         if (pool == null) {
             pool = new ObjectDBConnectionPool();
         }
         return pool;
     }
-
-
 }
