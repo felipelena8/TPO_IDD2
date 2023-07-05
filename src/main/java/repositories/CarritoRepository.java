@@ -8,7 +8,6 @@ import models.Producto;
 import models.Usuario;
 import redis.clients.jedis.Jedis;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;

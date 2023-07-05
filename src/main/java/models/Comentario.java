@@ -1,7 +1,5 @@
 package models;
 
-import java.util.ArrayList;
-
 public class Comentario {
     private Usuario usuario;
     private String mensaje;

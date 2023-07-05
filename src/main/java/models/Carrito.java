@@ -1,11 +1,8 @@
 package models;
 
-import config.RedisConnectionPool;
 import controllers.ControllerPedidos;
 import controllers.ControllerProductos;
 import lombok.Data;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
 import repositories.CarritoRepository;
 
 import java.io.Serializable;
