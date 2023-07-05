@@ -49,7 +49,10 @@ public class TpoIdd2Application {
         prod1.agregarVideoUrl("Video1.png");
         prod1.agregarVideoUrl("video2.png");*/
 
-        
+        ControllerUsuarios.getInstancia().iniciarSesion(new UsuarioDTO("felipelena", "uade1234"));
+        Usuario sesion = ControllerUsuarios.getInstancia().getSession();
+        Producto prod = ControllerProductos.getInstancia().buscarProducto(1);
+        prod.agregarComentario(new Comentario(sesion, "Anda bien"));
         System.out.println(ControllerProductos.getInstancia().buscarProducto(1));
     }
 }

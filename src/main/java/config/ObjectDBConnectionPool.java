@@ -7,11 +7,11 @@ import javax.persistence.Persistence;
 public class ObjectDBConnectionPool {
     private static EntityManagerFactory emf =
             Persistence.createEntityManagerFactory("bd.odb");
-
+    private EntityManager em = emf.createEntityManager();
     private static ObjectDBConnectionPool pool;
 
     public EntityManager getConnection() {
-        return emf.createEntityManager();
+        return em;
     }
 
     private ObjectDBConnectionPool() {
