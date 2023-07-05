@@ -1,13 +1,15 @@
 package repositories;
 
 import config.ObjectDBConnectionPool;
+import lombok.Getter;
 import models.Usuario;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import java.util.List;
 
 public class UserRepository {
-
+    @Getter
     private EntityManager em = ObjectDBConnectionPool.getConnection();
 
     public void closeConnection(){
@@ -15,17 +17,16 @@ public class UserRepository {
     }
 
     public void save(Usuario usuario) {
-        usuario.setCarrito(null);
         em.getTransaction().begin();
         em.persist(usuario);
         em.getTransaction().commit();
     }
 
-    public Usuario readPorId(int id) {
-        Query query = em.createQuery("SELECT u FROM Usuario u WHERE u.id = :id");
-        query.setParameter("id", id);
-        Usuario user = (Usuario) query.getResultList().get(0);
-        return user;
+
+    public List<Usuario> read(){
+        Query query = em.createQuery("SELECT u FROM Usuario u");
+        List<Usuario>  usuarios = query.getResultList();
+        return  usuarios;
     }
 
     public Usuario readPorUsername(String username) {

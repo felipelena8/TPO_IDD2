@@ -6,10 +6,12 @@ import lombok.Setter;
 import models.Carrito;
 import models.Usuario;
 import repositories.UserRepository;
+import utils.BotCategoriaUsuario;
 
 public class ControllerUsuarios {
-    private UserRepository repo = new UserRepository();
 
+    @Getter
+    private UserRepository repo = new UserRepository();
     private static ControllerUsuarios instancia = null;
 
     @Getter
@@ -17,6 +19,7 @@ public class ControllerUsuarios {
     private Usuario session;
 
     private ControllerUsuarios() {
+        new BotCategoriaUsuario();
     }
 
     public static ControllerUsuarios getInstancia() {
@@ -41,8 +44,9 @@ public class ControllerUsuarios {
 
     public void iniciarSesion(UsuarioDTO usuario) {
         Usuario user = repo.readPorUsername(usuario.getUsername());
-        user.setCarrito(new Carrito(user));
+
         if(user!=null && user.getPassword().equals(usuario.getPassword())){
+            user.setCarrito(new Carrito(user));
             System.out.println("Se ha iniciado sesion. Bienvenido " + usuario.getUsername());
             setSession(user);
         }
