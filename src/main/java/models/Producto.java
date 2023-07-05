@@ -11,13 +11,15 @@ public class Producto {
     private String descripcion;
     private List<String> imagenesUrl;
     private double precio;
+    private int stock;
     private List<Comentario> comentarios;
     private List<String> videosUrl;
 
-    public Producto(int id, String descripcion, double precio) {
+    public Producto(int id, String descripcion, double precio, int stock) {
         this.id = id;
         this.descripcion = descripcion;
         this.precio = precio;
+        this.stock = stock;
         imagenesUrl = new ArrayList<>();
         comentarios = new ArrayList<>();
         videosUrl = new ArrayList<>();
