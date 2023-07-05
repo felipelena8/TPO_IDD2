@@ -2,9 +2,9 @@ package models;
 
 import lombok.Data;
 import models.MedioPago.MedioPago;
+import utils.Tiempo;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,12 +19,15 @@ public class Usuario implements Serializable {
     private String password;
     private String direccion;
     private String dni;
+    @Transient
     private Carrito carrito = new Carrito(this);
     private List<Pedido> pedidos;
     private Categoria categoria;
     private List<MedioPago> mediosPago;
     private int minutosPorDia;
     private CondicionFiscal condicionFiscal;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Tiempo tiempoEnDia;
 
     public Usuario(int id, String nombre, String username, String password, String direccion, String dni, CondicionFiscal condicionFiscal) {
         this.id = id;
@@ -36,5 +39,7 @@ public class Usuario implements Serializable {
         this.condicionFiscal = condicionFiscal;
         this.mediosPago = new ArrayList<>();
         this.pedidos = new ArrayList<>();
+        categoria=Categoria.LOW;
+        this.tiempoEnDia=new Tiempo();
     }
 }
