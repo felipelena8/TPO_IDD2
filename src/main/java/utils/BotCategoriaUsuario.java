@@ -36,9 +36,9 @@ public class BotCategoriaUsuario {
                 EntityManager em = ObjectDBConnectionPool.getInstancia().getConnection();
                 em.getTransaction().begin();
                 usuario.getTiempoEnDia().sumarMilisegundos(periodo);
-                if(usuario.getTiempoEnDia().getMinutos()>=7){
+                if(usuario.getTiempoEnDia().getHoras()>=4){
                     usuario.setCategoria(Categoria.TOP);
-                }else if(usuario.getTiempoEnDia().getMinutos()>=2){
+                }else if(usuario.getTiempoEnDia().getHoras()>=2){
                     usuario.setCategoria(Categoria.MEDIUM);
                 }else{
                     usuario.setCategoria(Categoria.LOW);

@@ -19,38 +19,44 @@ public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int numero;
-    private Usuario usuario;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int numeroPedido;
-    private double precio;
+    private double monto;
     @OneToOne(cascade = CascadeType.ALL)
     private Descuento descuento;
     @OneToMany(cascade = CascadeType.ALL)
     private List<Impuesto> impuestosAplicados;
 
-    public Pedido(List<Item> items, double precio, Descuento descuento, List<Impuesto> impuestosAplicados) {
+    public Pedido(List<Item> items, double monto, Descuento descuento, List<Impuesto> impuestosAplicados) {
         ControllerUsuarios.getInstancia().getSession().getPedidos().add(this);
         this.items = items;
-        this.precio = precio;
+        this.monto = monto;
         this.descuento=descuento;
         this.impuestosAplicados= impuestosAplicados;
     }
 
-    private void generarFactura(String operadorInterviniente) {
-        this.factura = new Factura(precio, calcularTotal(),operadorInterviniente, this);
+    public Factura generarFactura(String operadorInterviniente) {
+        this.factura = new Factura(monto, calcularTotal(),operadorInterviniente, this);
+        return factura;
     }
 
-    private void generarFactura() {
-        this.factura = new Factura(precio, calcularTotal(),this);
+    public void generarFactura() {
+        this.factura = new Factura(monto, calcularTotal(),this);
     }
 
     public double calcularTotal(){
-        double precioSubtotal = precio;
-        double valorImpuesto = impuestosAplicados.stream().map(impuesto -> impuesto.calcularImpuesto(precioSubtotal)).reduce(0.0, Double::sum);
-        double valorDescuento = descuento.calcularPrecio(precioSubtotal);
-        System.out.println(descuento);
-        return precioSubtotal-valorDescuento+valorImpuesto;
+        double montoSubtotal = monto;
+        double valorImpuesto = impuestosAplicados.stream().map(impuesto -> impuesto.calcularImpuesto(montoSubtotal)).reduce(0.0, Double::sum);
+        double valorDescuento = descuento.calcularDescuento(montoSubtotal);
+        return montoSubtotal-valorDescuento+valorImpuesto;
+    }
+
+    @Override
+    public String toString() {
+        return "Pedido{" +"numero=" + numero +
+                ", monto=" + monto +
+                ", descuento=" + descuento +
+                ", impuestosAplicados=" + impuestosAplicados +
+                ", items=" + items +
+
+                '}';
     }
 }

@@ -58,7 +58,6 @@ public class ControllerUsuarios {
         Usuario user = repo.readPorUsername(usuario.getUsername());
         if(user!=null && user.getPassword().equals(usuario.getPassword())){
             user.setCarrito(ControllerCarrito.getInstancia().buscarCarrito(user));
-
             System.out.println("Se ha iniciado sesion. Bienvenido " + usuario.getUsername());
             setSession(user);
         }

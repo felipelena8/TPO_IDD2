@@ -23,9 +23,8 @@ public class Item {
 
     @Override
     public String toString() {
-        return "Item{" +
-                "producto=" + producto +
-                ", cantidad=" + cantidad +
+        return "{producto{ descripcion=" + producto.getDescripcion() + ", precio="+producto.getPrecio() +
+                "}, cantidad=" + cantidad +
                 "}\n";
     }
 }

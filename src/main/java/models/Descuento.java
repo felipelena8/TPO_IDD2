@@ -10,9 +10,8 @@ public class Descuento {
         this.porcentaje=porcentaje;
     }
 
-    public double calcularPrecio(double precio){
-        System.out.println(porcentaje/100/0);
-        return precio*(1.0-porcentaje/100.0);
+    public double calcularDescuento(double precio){
+        return precio*(porcentaje/100.0);
     }
 
     @Override

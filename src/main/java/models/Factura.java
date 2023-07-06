@@ -5,6 +5,7 @@ import models.MedioPago.MedioPago;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
+import java.util.Calendar;
 import java.util.Date;
 
 @Entity
@@ -21,6 +22,10 @@ public class Factura {
 
     public Factura(double subtotal, double total, Pedido pedido) {
         this.fechaHoraEmision = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(fechaHoraEmision);
+        calendar.add(Calendar.MONTH,1);
+        this.fechaVencimiento= calendar.getTime();
         this.pedido = pedido;
         this.subtotal = subtotal;
         this.total = total;
@@ -28,6 +33,10 @@ public class Factura {
 
     public Factura(double subtotal, double total, String operadorInterviniente, Pedido pedido) {
         this.fechaHoraEmision = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(fechaHoraEmision);
+        calendar.add(Calendar.MONTH,1);
+        this.fechaVencimiento= calendar.getTime();
         this.subtotal = subtotal;
         this.operadorInterviniente = operadorInterviniente;
         this.pedido = pedido;
@@ -43,5 +52,15 @@ public class Factura {
         return pago!=null;
     }
 
-
+    @Override
+    public String toString() {
+        return "Factura{" +
+                "fechaHoraEmision=" + fechaHoraEmision +
+                ", fechaVencimiento=" + fechaVencimiento +
+                ", total=" + total +
+                ", subtotal=" + subtotal +
+                ", operadorInterviniente='" + operadorInterviniente +
+                ", pago=" + pago +", descuento= "+pedido.getDescuento() + ", impuestos =" + pedido.getImpuestosAplicados()+
+                '}';
+    }
 }
