@@ -63,14 +63,21 @@ public class Factura {
 
     @Override
     public String toString() {
-        return "Factura{ fechaHoraEmision=" + fechaHoraEmision +
-                ", fechaVencimiento=" + fechaVencimiento +
-                ", total=" + total +
-                ", subtotal=" + subtotal +
-                ", items= " + pedido.getItems() +
-                ", operadorInterviniente='" + operadorInterviniente +
-                ", pago=" + pago + ", descuento= " + pedido.getDescuento() +
-                ", impuestos =" + pedido.getImpuestosAplicados() +
-                '}';
+        String toString = "\n\nFactura:";
+        toString += "\nFecha emisión: " + fechaHoraEmision;
+        toString += "\nTotal: " + total;
+        toString += "\nSubtotal: " + subtotal;
+        toString += "\nItems:\n";
+        for (Item item : pedido.getItems()) {
+            toString += item.toString();
+        }
+        toString += "\nOperador Interviniente: " + operadorInterviniente;
+        toString += "\nPago: " + pago.toString();
+        toString += "\nImpuestos:\n";
+        for (Impuesto impuesto : pedido.getImpuestosAplicados()) {
+            toString += impuesto.getNombre() + "\n";
+        }
+        toString += "\nDescuento: " + pedido.getDescuento().getPorcentaje() + "%";
+        return toString;
     }
 }

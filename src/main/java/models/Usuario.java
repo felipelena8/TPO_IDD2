@@ -46,15 +46,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "Usuario{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", direccion='" + direccion + '\'' +
-                ", dni='" + dni + '\'' +
-                ", tiempo en el dia = " + tiempoEnDia +
-                ", categoria= " + categoria + '}';
+        return "Usuario: " + nombre + " | id: " + id + " | username: " + username + " | direccion: " + direccion + " | dni: " + dni + " | tiempo en el dia: " + tiempoEnDia + " | categoria: " + categoria;
     }
 
     public void persistir() {

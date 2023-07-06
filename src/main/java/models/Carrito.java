@@ -102,8 +102,11 @@ public class Carrito implements Serializable {
 
     @Override
     public String toString() {
-        return "Carrito{" +
-                "items=" + items +
-                '}';
+        String toString = "\n\nCarrito:";
+        toString += "\nItems:\n";
+        for (Item item : items) {
+            toString += item.toString();
+        }
+        return toString;
     }
 }

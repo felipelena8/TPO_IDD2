@@ -17,6 +17,6 @@ public class Pago {
 
     @Override
     public String toString() {
-        return "Pago{medio de pago= " + medioPago + ", precio= " + precio + "}";
+        return "\n\nPago | Medio de pago: " + medioPago.toString() + " | precio: $" + precio;
     }
 }
