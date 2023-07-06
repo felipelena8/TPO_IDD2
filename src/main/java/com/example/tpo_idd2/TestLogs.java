@@ -7,6 +7,9 @@ import utils.Utils;
 public class TestLogs {
     public static void main(String[] args) {
         ResultSet resultado = CassandraConnectionPool.getInstancia().buscarLogsPorProductoYFechas(2, "2023-07-06 16:00:00","2023-07-07");
+
+        System.out.println("Buscar todos los logs en el producto 2 realizados entre el 06-07-2023 4PM y el 07-07-2023");
+        System.out.println();
         Utils.leerResultadoCassandra(resultado);
     }
 }
