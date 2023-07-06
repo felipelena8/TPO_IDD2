@@ -13,6 +13,6 @@ public abstract class Impuesto {
 
     @Override
     public String toString() {
-        return "Impuesto: " + nombre;
+        return nombre;
     }
 }

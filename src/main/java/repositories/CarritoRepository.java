@@ -34,12 +34,13 @@ public class CarritoRepository {
         List<Item> items = new ArrayList<>();
         for (int i=0; i<cantOperaciones;i++) {
             int finalI = i;
+            if(productos.get(finalI)!=null){
             Item existe = items.stream().filter(item -> item.getProducto().equals(productos.get(finalI))).findFirst().orElse(null);
             if(existe!=null){
                 existe.setCantidad(existe.getCantidad()+cantidades.get(i));
             }else {
                 items.add(new Item(productos.get(i), cantidades.get(i)));
-            }
+            }}
         }
         jedis.quit();
         Carrito cart = new Carrito(usuario);

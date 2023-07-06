@@ -1,6 +1,5 @@
 package models;
 
-import controllers.ControllerPedidos;
 import controllers.ControllerProductos;
 import lombok.Data;
 import repositories.CarritoRepository;
@@ -30,7 +29,6 @@ public class Carrito implements Serializable {
         if (!estaVacio()) {
             Pedido pedido = new Pedido(items, precioTotal(), FactoryDescuento.crearDescuento(usuario.getCategoria()), FactoryImpuesto.crearImpuestos(usuario.getCondicionFiscal()));
             usuario.getPedidos().add(pedido);
-            ControllerPedidos.getInstancia().agregarPedido(pedido);
             return pedido;
         }
         return null;
