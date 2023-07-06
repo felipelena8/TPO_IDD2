@@ -13,7 +13,6 @@ public class ProductoRepository {
     private EntityManager em = ObjectDBConnectionPool.getInstancia().getConnection();
 
     public void save(Producto producto) {
-
         em.getTransaction().begin();
         em.persist(producto);
         em.getTransaction().commit();
@@ -52,7 +51,6 @@ public class ProductoRepository {
         productoViejo.setPrecio(productoNuevo.getPrecio());
         productoViejo.setStock(productoNuevo.getStock());
         productoViejo.setComentarios(productoNuevo.getComentarios());
-        System.out.println(productoNuevo);
         em.getTransaction().commit();
     }
 }

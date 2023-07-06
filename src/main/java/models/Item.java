@@ -2,8 +2,13 @@ package models;
 
 import lombok.Data;
 
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+
 @Data
+@Entity
 public class Item {
+    @OneToOne
     private Producto producto;
     private int cantidad;
 

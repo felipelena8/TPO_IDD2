@@ -15,7 +15,7 @@ import repositories.CarritoRepository;
 public class TpoIdd2Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(TpoIdd2Application.class, args);
+        /*SpringApplication.run(TpoIdd2Application.class, args);
         // Creamos 4 usuarios
         System.out.println("\nSe crean 4 usuarios: -Felipe Costa- -Lucas Muñoz- -Francisco fontana- -Ignacio Cesarani-");
         Usuario user1 = new Usuario(1, "Felipe Costa", "felipelena", "uade1234", "Lima 757", "44967716", CondicionFiscal.EXENTO);
@@ -47,7 +47,17 @@ public class TpoIdd2Application {
         //Producto prod1 = ControllerProductos.getInstancia().buscarProducto(1);
         prod1.agregarComentario(new Comentario(ControllerUsuarios.getInstancia().getSession(), "hola"));
         prod1.agregarVideoUrl("Video1.png");
-        prod1.agregarVideoUrl("video2.png");
+        prod1.agregarVideoUrl("video2.png");*/
+
+        System.out.println("Se inicia sesion en el usuario Felipe Costa");
+        ControllerUsuarios.getInstancia().iniciarSesion(new UsuarioDTO("felipelena", "uade1234"));
+        Usuario sesion = ControllerUsuarios.getInstancia().getSession();
+        System.out.println(sesion.getPedidos());
+        System.out.println(sesion);
+
+//        Carrito cart1 = ControllerUsuarios.getInstancia().getSession().getCarrito();
+//        Pedido pedido =cart1.generarPedido();
+//        System.out.println(pedido.calcularTotal());
 
     }
 }
