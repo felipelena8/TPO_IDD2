@@ -2,12 +2,12 @@ package models;
 
 import controllers.ControllerUsuarios;
 import lombok.Data;
-import utils.FactoryImpuesto;
 
 import javax.persistence.*;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.List;
-
-import static org.neo4j.cypherdsl.core.Functions.reduce;
 
 @Entity
 @Data
@@ -19,6 +19,11 @@ public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int numero;
+    private Usuario usuario;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int numeroPedido;
     private double precio;
     @OneToOne(cascade = CascadeType.ALL)
     private Descuento descuento;

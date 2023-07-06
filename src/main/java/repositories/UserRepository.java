@@ -31,10 +31,10 @@ public class UserRepository {
         em.getTransaction().commit();
     }
 
-    public List<Usuario> readAll(){
+    public List<Usuario> readAll() {
         Query query = em.createQuery("SELECT u FROM Usuario u");
-        List<Usuario>  usuarios = query.getResultList();
-        return  usuarios;
+        List<Usuario> usuarios = query.getResultList();
+        return usuarios;
     }
 
     public Usuario readPorUsername(String username) {
