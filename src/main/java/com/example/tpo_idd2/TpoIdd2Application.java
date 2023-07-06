@@ -41,16 +41,14 @@ public class TpoIdd2Application {
 
         // Se crean 3 productos: Sacapuntas, Lapicera y Regla
         System.out.println("Se crean 3 productos: Sacapuntas, Lapicera y Regla");
-        Producto prod1 = new Producto(1, "Sacapuntas", 500, 100);
-        ControllerProductos.getInstancia().agregarProducto(prod1);
-        ControllerProductos.getInstancia().agregarProducto(new Producto(2, "Lapicera", 30, 100));
+        Producto prod2 = new Producto(2, "Lapicera", 30, 100);
+        ControllerProductos.getInstancia().agregarProducto(new Producto(1, "Sacapuntas", 500, 100));
+        ControllerProductos.getInstancia().agregarProducto(prod2);
         ControllerProductos.getInstancia().agregarProducto(new Producto(3, "Regla", 40, 100));
 
-
-        //Producto prod1 = ControllerProductos.getInstancia().buscarProducto(1);
-        prod1.agregarComentario(new Comentario(ControllerUsuarios.getInstancia().getSession(), "hola"));
-        prod1.agregarVideoUrl("Video1.png");
-        prod1.agregarVideoUrl("video2.png");
+        prod2.agregarComentario(new Comentario(ControllerUsuarios.getInstancia().getSession(), "hola"));
+        prod2.agregarVideoUrl("Video1.png");
+        prod2.agregarVideoUrl("video2.png");
 
         System.out.println("Se inicia sesion en el usuario Felipe Costa");
         ControllerUsuarios.getInstancia().iniciarSesion(new UsuarioDTO("felipelena", "uade1234"));
