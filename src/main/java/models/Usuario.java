@@ -1,5 +1,6 @@
 package models;
 
+import controllers.ControllerUsuarios;
 import lombok.Data;
 import models.MedioPago.MedioPago;
 import utils.Tiempo;
@@ -21,8 +22,10 @@ public class Usuario implements Serializable {
     private String dni;
     @Transient
     private Carrito carrito = new Carrito(this);
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Pedido> pedidos;
     private Categoria categoria;
+    @OneToMany(cascade = CascadeType.ALL)
     private List<MedioPago> mediosPago;
     private int minutosPorDia;
     private CondicionFiscal condicionFiscal;
@@ -41,5 +44,22 @@ public class Usuario implements Serializable {
         this.pedidos = new ArrayList<>();
         categoria=Categoria.LOW;
         this.tiempoEnDia=new Tiempo();
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", direccion='" + direccion + '\'' +
+                ", dni='" + dni + '\'' +
+                ", tiempo en el dia = " + tiempoEnDia+
+                ", categoria= "+categoria+'}';
+    }
+
+    public void persistir(){
+        ControllerUsuarios.getInstancia().actualizar(this);
     }
 }

@@ -4,6 +4,8 @@ import controllers.ControllerPedidos;
 import controllers.ControllerProductos;
 import lombok.Data;
 import repositories.CarritoRepository;
+import utils.FactoryDescuento;
+import utils.FactoryImpuesto;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -24,12 +26,14 @@ public class Carrito implements Serializable {
         return items.stream().map(Item::precioItem).reduce(0.0, Double::sum);
     }
 
-    public void generarPedido() {
+    public Pedido generarPedido() {
         if (!estaVacio()) {
-            Pedido pedido = new Pedido(items, precioTotal());
+            Pedido pedido = new Pedido(items, precioTotal(), FactoryDescuento.crearDescuento(usuario.getCategoria()), FactoryImpuesto.crearImpuestos(usuario.getCondicionFiscal()));
             usuario.getPedidos().add(pedido);
             ControllerPedidos.getInstancia().agregarPedido(pedido);
+            return pedido;
         }
+        return null;
     }
 
     public void agregarItem(int idProducto, int cantidad) {

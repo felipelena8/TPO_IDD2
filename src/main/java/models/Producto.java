@@ -35,20 +35,20 @@ public class Producto {
 
     public void agregarImagenUrl(String imagen) {
         imagenesUrl.add(imagen);
-        ControllerProductos.getInstancia().actualizarProducto(this);
+        persistir();
     }
 
     public void agregarVideoUrl(String videoUrl) {
         videosUrl.add(videoUrl);
-        ControllerProductos.getInstancia().actualizarProducto(this);
+        persistir();
     }
 
     public void agregarComentario(Comentario comentario) {
         comentarios.add(comentario);
-        ControllerProductos.getInstancia().actualizarProducto(this);
+        persistir();
     }
 
-    public String productoLog() {
-        return "id: " + id + ", descripcion: " + descripcion + ", imagenes: " + imagenesUrl + ", precio: " + precio + ", videos: " + videosUrl;
+    public void persistir(){
+        ControllerProductos.getInstancia().actualizarProducto(this);
     }
 }

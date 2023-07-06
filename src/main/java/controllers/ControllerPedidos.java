@@ -6,7 +6,6 @@ import java.util.List;
 
 public class ControllerPedidos {
     private static ControllerPedidos instancia = null;
-    private List<Pedido> pedidos;
 
     private ControllerPedidos() {
     }
@@ -19,6 +18,6 @@ public class ControllerPedidos {
     }
 
     public void agregarPedido(Pedido pedido) {
-        pedidos.add(pedido);
+
     }
 }

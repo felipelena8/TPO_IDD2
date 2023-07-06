@@ -18,6 +18,18 @@ public class UserRepository {
         em.getTransaction().commit();
     }
 
+    public void update(Usuario usuarioViejo, Usuario usuarioNuevo){
+        em.getTransaction().begin();
+        usuarioViejo.setDni(usuarioNuevo.getDni());
+        usuarioViejo.setPedidos(usuarioNuevo.getPedidos());
+        usuarioViejo.setCondicionFiscal(usuarioNuevo.getCondicionFiscal());
+        usuarioViejo.setMediosPago(usuarioNuevo.getMediosPago());
+        usuarioViejo.setDireccion(usuarioNuevo.getDireccion());
+        usuarioViejo.setNombre(usuarioNuevo.getNombre());
+        usuarioViejo.setUsername(usuarioNuevo.getUsername());
+        usuarioViejo.setPassword(usuarioNuevo.getPassword());
+        em.getTransaction().commit();
+    }
 
     public List<Usuario> readAll(){
         Query query = em.createQuery("SELECT u FROM Usuario u");

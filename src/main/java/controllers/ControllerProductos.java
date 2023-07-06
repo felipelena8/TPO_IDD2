@@ -47,9 +47,6 @@ public class ControllerProductos {
     public void actualizarProducto(Producto producto) {
         Producto prodViejo = buscarProducto(producto.getId());
         if (prodViejo != null) {
-            //TODO aca llega
-//            System.out.println("Producto: " + producto);
-//            System.out.println("Producto viejo: " + prodViejo);
             repo.update(prodViejo,producto);
             logger.cambiarTipoLog(new UpdateLog());
             logger.registrar(new RegistroLog(prodViejo, producto));

@@ -4,6 +4,7 @@ import dtos.UsuarioDTO;
 import lombok.Getter;
 import lombok.Setter;
 import models.Carrito;
+import models.Producto;
 import models.Usuario;
 import repositories.UserRepository;
 import utils.BotCategoriaUsuario;
@@ -42,11 +43,22 @@ public class ControllerUsuarios {
         }
     }
 
+    public void actualizar(Usuario usuario){
+        Usuario usuarioViejo = buscarUsuario(usuario.getUsername());
+        if(usuarioViejo!=null){
+            repo.update(usuarioViejo, usuario);
+        }
+    }
+
+    private Usuario buscarUsuario(String username) {
+        return repo.readPorUsername(username);
+    }
+
     public void iniciarSesion(UsuarioDTO usuario) {
         Usuario user = repo.readPorUsername(usuario.getUsername());
-
         if(user!=null && user.getPassword().equals(usuario.getPassword())){
-            user.setCarrito(new Carrito(user));
+            user.setCarrito(ControllerCarrito.getInstancia().buscarCarrito(user));
+
             System.out.println("Se ha iniciado sesion. Bienvenido " + usuario.getUsername());
             setSession(user);
         }

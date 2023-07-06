@@ -41,10 +41,10 @@ public class CarritoRepository {
                 items.add(new Item(productos.get(i), cantidades.get(i)));
             }
         }
-
         jedis.quit();
-        usuario.getCarrito().setItems(items.stream().filter(item -> item.getCantidad()!=0).collect(Collectors.toList()));
-        return usuario.getCarrito();
+        Carrito cart = new Carrito(usuario);
+        cart.setItems(items.stream().filter(item -> item.getCantidad()!=0).collect(Collectors.toList()));
+        return cart;
     }
 
     public void limpiarCarrito(int idUsuario) {
