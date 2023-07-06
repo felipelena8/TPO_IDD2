@@ -1,6 +1,7 @@
 package config;
 
 import com.datastax.oss.driver.api.core.CqlSession;
+import com.datastax.oss.driver.api.core.cql.ResultSet;
 import dtos.LogDTO;
 
 import java.nio.file.Paths;
@@ -22,7 +23,6 @@ public class CassandraConnectionPool {
         }
         return instancia;
     }
-
 
     public static void connect() {
         session = CqlSession.builder()
@@ -69,5 +69,19 @@ public class CassandraConnectionPool {
         String prev_videosUrl = registroDTO.getPrev_videosUrl().size() > 0 ? "'" + String.join("', '", registroDTO.getPrev_videosUrl()) + "'" : "";
 
         session.execute("INSERT INTO logs.registro_logs(tipo_registro, codigo, prev_precio, prev_stock, prev_descripcion, prev_imagenes, prev_videos, datetime ) VALUES ( 'DELETE', " + registroDTO.getCodigo() + ", " + registroDTO.getPrev_precio() + ", " + registroDTO.getPrev_stock() + ", '" + registroDTO.getPrev_descripcion() + "', [" + prev_imagenesUrl + "], [" + prev_videosUrl + "], " + "toTimeStamp(now()));");
+    }
+
+    public ResultSet buscarLogsPorProducto(int numeroProducto) {
+        if (session == null)
+            connect();
+
+        return session.execute("select * from logs.registro_logs where codigo = " + numeroProducto + ";");
+    }
+
+    public ResultSet buscarLogsPorProductoYFechas(int numeroProducto, String fechaMin, String fechaMax) {
+        if (session == null)
+            connect();
+
+        return session.execute("select * from logs.registro_logs where codigo = " + numeroProducto + " AND datetime > '" + fechaMin + "' AND datetime < '" + fechaMax + "' allow filtering;");
     }
 }

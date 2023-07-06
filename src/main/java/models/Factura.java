@@ -24,8 +24,8 @@ public class Factura {
         this.fechaHoraEmision = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(fechaHoraEmision);
-        calendar.add(Calendar.MONTH,1);
-        this.fechaVencimiento= calendar.getTime();
+        calendar.add(Calendar.MONTH, 1);
+        this.fechaVencimiento = calendar.getTime();
         this.pedido = pedido;
         this.subtotal = subtotal;
         this.total = total;
@@ -35,8 +35,8 @@ public class Factura {
         this.fechaHoraEmision = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(fechaHoraEmision);
-        calendar.add(Calendar.MONTH,1);
-        this.fechaVencimiento= calendar.getTime();
+        calendar.add(Calendar.MONTH, 1);
+        this.fechaVencimiento = calendar.getTime();
         this.subtotal = subtotal;
         this.operadorInterviniente = operadorInterviniente;
         this.pedido = pedido;
@@ -48,8 +48,8 @@ public class Factura {
         return pago;
     }
 
-    public boolean estaAbonada(){
-        return pago!=null;
+    public boolean estaAbonada() {
+        return pago != null;
     }
 
     @Override
@@ -60,7 +60,7 @@ public class Factura {
                 ", total=" + total +
                 ", subtotal=" + subtotal +
                 ", operadorInterviniente='" + operadorInterviniente +
-                ", pago=" + pago +", descuento= "+pedido.getDescuento() + ", impuestos =" + pedido.getImpuestosAplicados()+
+                ", pago=" + pago + ", descuento= " + pedido.getDescuento() + ", impuestos =" + pedido.getImpuestosAplicados() +
                 '}';
     }
 }

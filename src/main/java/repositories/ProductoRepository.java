@@ -18,20 +18,20 @@ public class ProductoRepository {
         em.getTransaction().commit();
     }
 
-    public List<Producto> readAll(){
+    public List<Producto> readAll() {
 
         Query query = em.createQuery("SELECT u FROM Producto u");
-        List<Producto>  productos = query.getResultList();
-        return  productos;
+        List<Producto> productos = query.getResultList();
+        return productos;
     }
 
     public Producto readPorId(int id) {
         Query query = em.createQuery("SELECT p FROM Producto p WHERE p.id = :id");
-        query.setParameter("id",id);
+        query.setParameter("id", id);
         Producto prod = null;
         try {
             prod = (Producto) query.getResultList().get(0);
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
         return prod;

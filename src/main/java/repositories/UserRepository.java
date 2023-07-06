@@ -18,7 +18,7 @@ public class UserRepository {
         em.getTransaction().commit();
     }
 
-    public void update(Usuario usuarioViejo, Usuario usuarioNuevo){
+    public void update(Usuario usuarioViejo, Usuario usuarioNuevo) {
         em.getTransaction().begin();
         usuarioViejo.setDni(usuarioNuevo.getDni());
         usuarioViejo.setPedidos(usuarioNuevo.getPedidos());

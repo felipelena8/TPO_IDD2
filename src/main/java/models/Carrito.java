@@ -43,11 +43,11 @@ public class Carrito implements Serializable {
             System.out.println("No existe el producto");
             return;
         }
-        Item existe = items.stream().filter(item -> item.getProducto().getId()==idProducto).findFirst().orElse(null);
-        if(existe==null){
+        Item existe = items.stream().filter(item -> item.getProducto().getId() == idProducto).findFirst().orElse(null);
+        if (existe == null) {
             items.add(new Item(prod, cantidad));
-        }else{
-            existe.setCantidad(existe.getCantidad()+cantidad);
+        } else {
+            existe.setCantidad(existe.getCantidad() + cantidad);
         }
 
         repo.agregarItem(idProducto, cantidad, getUsuario().getId());
@@ -59,16 +59,16 @@ public class Carrito implements Serializable {
             System.out.println("No existe el producto");
             return;
         }
-        if(!items.stream().map(item -> item.getProducto()).anyMatch(producto -> producto.getId()==idProducto)){
+        if (!items.stream().map(item -> item.getProducto()).anyMatch(producto -> producto.getId() == idProducto)) {
             System.out.println("No existe el producto en el carrito");
             return;
         }
-        this.items = items.stream().filter(item -> item.getProducto().getId()!=idProducto).toList();//eliminacion de memoria
+        this.items = items.stream().filter(item -> item.getProducto().getId() != idProducto).toList();//eliminacion de memoria
         repo.eliminarProducto(idProducto, usuario.getId());
     }
 
-    public void estadoAnterior(){
-        if(repo.operacion(usuario.getId())==0){
+    public void estadoAnterior() {
+        if (repo.operacion(usuario.getId()) == 0) {
             System.out.println("Ya no hay estados anteriores");
             return;
         }
@@ -76,8 +76,8 @@ public class Carrito implements Serializable {
         repo.read(usuario);
     }
 
-    public void estadoPosterior(){
-        if(repo.operacion(usuario.getId())==repo.largoCarrito(usuario.getId())){
+    public void estadoPosterior() {
+        if (repo.operacion(usuario.getId()) == repo.largoCarrito(usuario.getId())) {
             System.out.println("Ya no hay estados posteriores");
             return;
         }
@@ -95,7 +95,7 @@ public class Carrito implements Serializable {
 //        Jedis jedis = pool.getResource();
 //        Long size = jedis.llen(usuario.getId() + "_cart:productos");
 //        pool.close();
-        return items.size()== 0;
+        return items.size() == 0;
     }
 
     @Override

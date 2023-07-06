@@ -29,29 +29,29 @@ public class Pedido {
         ControllerUsuarios.getInstancia().getSession().getPedidos().add(this);
         this.items = items;
         this.monto = monto;
-        this.descuento=descuento;
-        this.impuestosAplicados= impuestosAplicados;
+        this.descuento = descuento;
+        this.impuestosAplicados = impuestosAplicados;
     }
 
     public Factura generarFactura(String operadorInterviniente) {
-        this.factura = new Factura(monto, calcularTotal(),operadorInterviniente, this);
+        this.factura = new Factura(monto, calcularTotal(), operadorInterviniente, this);
         return factura;
     }
 
     public void generarFactura() {
-        this.factura = new Factura(monto, calcularTotal(),this);
+        this.factura = new Factura(monto, calcularTotal(), this);
     }
 
-    public double calcularTotal(){
+    public double calcularTotal() {
         double montoSubtotal = monto;
         double valorImpuesto = impuestosAplicados.stream().map(impuesto -> impuesto.calcularImpuesto(montoSubtotal)).reduce(0.0, Double::sum);
         double valorDescuento = descuento.calcularDescuento(montoSubtotal);
-        return montoSubtotal-valorDescuento+valorImpuesto;
+        return montoSubtotal - valorDescuento + valorImpuesto;
     }
 
     @Override
     public String toString() {
-        return "Pedido{" +"numero=" + numero +
+        return "Pedido{" + "numero=" + numero +
                 ", monto=" + monto +
                 ", descuento=" + descuento +
                 ", impuestosAplicados=" + impuestosAplicados +
