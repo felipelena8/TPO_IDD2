@@ -4,8 +4,8 @@ import models.Categoria;
 import models.Descuento;
 
 public class FactoryDescuento {
-    public static Descuento crearDescuento(Categoria categoria){
-        switch (categoria){
+    public static Descuento crearDescuento(Categoria categoria) {
+        switch (categoria) {
             case LOW -> {
                 return new Descuento(0);
             }

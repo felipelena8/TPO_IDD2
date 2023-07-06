@@ -3,10 +3,9 @@ package models;
 import controllers.ControllerUsuarios;
 import lombok.Data;
 
-import javax.persistence.*;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -51,7 +50,7 @@ public class Factura {
     }
 
     public void generarPago(MedioPago medioPago) {
-        if(ControllerUsuarios.getInstancia().getSession().getMediosPago().contains(medioPago)){
+        if (ControllerUsuarios.getInstancia().getSession().getMediosPago().contains(medioPago)) {
             pago = new Pago(medioPago, total);
             System.out.println("Se ha realizado el pago");
             System.out.println(pago);
@@ -68,10 +67,10 @@ public class Factura {
                 ", fechaVencimiento=" + fechaVencimiento +
                 ", total=" + total +
                 ", subtotal=" + subtotal +
-                ", items= " + pedido.getItems()+
+                ", items= " + pedido.getItems() +
                 ", operadorInterviniente='" + operadorInterviniente +
-                ", pago=" + pago +", descuento= "+pedido.getDescuento()+
-                ", impuestos =" + pedido.getImpuestosAplicados()+
+                ", pago=" + pago + ", descuento= " + pedido.getDescuento() +
+                ", impuestos =" + pedido.getImpuestosAplicados() +
                 '}';
     }
 }

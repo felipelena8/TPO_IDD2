@@ -5,8 +5,8 @@ import models.Usuario;
 import repositories.CarritoRepository;
 
 public class ControllerCarrito {
-    private CarritoRepository repo;
     private static ControllerCarrito instancia = null;
+    private CarritoRepository repo;
 
     private ControllerCarrito() {
         repo = new CarritoRepository();

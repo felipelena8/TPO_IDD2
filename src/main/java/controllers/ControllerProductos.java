@@ -21,7 +21,8 @@ public class ControllerProductos {
         }
         return instancia;
     }
-    public List<Producto> productos(){
+
+    public List<Producto> productos() {
         return repo.readAll();
     }
 
@@ -31,8 +32,8 @@ public class ControllerProductos {
             repo.save(producto);
             logger.cambiarTipoLog(new CreateLog());
             logger.registrar(new RegistroLog(producto));
-        }else{
-            System.out.println("Ya existe un producto con el codigo "+producto.getId());
+        } else {
+            System.out.println("Ya existe un producto con el codigo " + producto.getId());
         }
     }
 
@@ -48,7 +49,7 @@ public class ControllerProductos {
     public void actualizarProducto(Producto producto) {
         Producto prodViejo = buscarProducto(producto.getId());
         if (prodViejo != null) {
-            repo.update(prodViejo,producto);
+            repo.update(prodViejo, producto);
             logger.cambiarTipoLog(new UpdateLog());
             logger.registrar(new RegistroLog(prodViejo, producto));
         }

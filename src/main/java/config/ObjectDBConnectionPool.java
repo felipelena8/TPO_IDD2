@@ -9,18 +9,14 @@ import java.util.Map;
 public class ObjectDBConnectionPool {
 
     private static EntityManagerFactory emf = crearFactory();
-    private EntityManager em = emf.createEntityManager();
     private static ObjectDBConnectionPool pool;
-
-    public EntityManager getConnection() {
-        return em;
-    }
+    private EntityManager em = emf.createEntityManager();
 
     private ObjectDBConnectionPool() {
 
     }
 
-    private static EntityManagerFactory crearFactory(){
+    private static EntityManagerFactory crearFactory() {
         Map<String, String> properties = new HashMap<>();
         properties.put("objectdb.max.persistable.types", "20");
         return Persistence.createEntityManagerFactory("bd.odb", properties);
@@ -31,5 +27,9 @@ public class ObjectDBConnectionPool {
             pool = new ObjectDBConnectionPool();
         }
         return pool;
+    }
+
+    public EntityManager getConnection() {
+        return em;
     }
 }

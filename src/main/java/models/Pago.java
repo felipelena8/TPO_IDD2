@@ -1,8 +1,8 @@
 package models;
 
-import controllers.ControllerUsuarios;
-
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Pago {
@@ -17,6 +17,6 @@ public class Pago {
 
     @Override
     public String toString() {
-        return "Pago{medio de pago= "+medioPago+", precio= " + precio+"}";
+        return "Pago{medio de pago= " + medioPago + ", precio= " + precio + "}";
     }
 }
