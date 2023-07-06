@@ -27,10 +27,12 @@ public class ControllerProductos {
 
     public void agregarProducto(Producto producto) {
         if (buscarProducto(producto.getId()) == null) {
-            System.out.println("Ya existe un producto con el codigo "+producto.getId());
+            System.out.println("Se ha creado un nuevo producto");
             repo.save(producto);
             logger.cambiarTipoLog(new CreateLog());
             logger.registrar(new RegistroLog(producto));
+        }else{
+            System.out.println("Ya existe un producto con el codigo "+producto.getId());
         }
     }
 

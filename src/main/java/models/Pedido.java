@@ -18,7 +18,7 @@ public class Pedido {
     private Factura factura;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int numero;
+    private Long numero;
     private double monto;
     @OneToOne(cascade = CascadeType.ALL)
     private Descuento descuento;
@@ -26,7 +26,6 @@ public class Pedido {
     private List<Impuesto> impuestosAplicados;
 
     public Pedido(List<Item> items, double monto, Descuento descuento, List<Impuesto> impuestosAplicados) {
-        ControllerUsuarios.getInstancia().getSession().getPedidos().add(this);
         this.items = items;
         this.monto = monto;
         this.descuento = descuento;
@@ -38,8 +37,9 @@ public class Pedido {
         return factura;
     }
 
-    public void generarFactura() {
-        this.factura = new Factura(monto, calcularTotal(), this);
+    public Factura generarFactura() {
+        this.factura = new Factura(monto, calcularTotal(),this);
+        return this.factura;
     }
 
     public double calcularTotal() {
