@@ -35,8 +35,7 @@ public class CassandraConnectionPool {
         if (session == null)
             connect();
 
-        session.execute("truncate logs.producto_logs;");
-
+        session.execute("truncate logs.registro_logs;");
     }
 
     public void crearRegistroUPDATE(LogDTO registroDTO) {
@@ -45,13 +44,11 @@ public class CassandraConnectionPool {
 
         String prev_imagenesUrl = registroDTO.getPrev_imagenesUrl().size() > 0 ? "'" + String.join("', '", registroDTO.getPrev_imagenesUrl()) + "'" : "";
         String prev_videosUrl = registroDTO.getPrev_videosUrl().size() > 0 ? "'" + String.join("', '", registroDTO.getPrev_videosUrl()) + "'" : "";
-        String prev_comentarios = registroDTO.getPrev_comentarios().size() > 0 ? "'" + String.join("', '", registroDTO.getPrev_comentarios()) + "'" : "";
 
         String new_imagenesUrl = registroDTO.getNew_imagenesUrl().size() > 0 ? "'" + String.join("', '", registroDTO.getNew_imagenesUrl()) + "'" : "";
         String new_videosUrl = registroDTO.getNew_videosUrl().size() > 0 ? "'" + String.join("', '", registroDTO.getNew_videosUrl()) + "'" : "";
-        String new_comentarios = registroDTO.getNew_comentarios().size() > 0 ? "'" + String.join("', '", registroDTO.getNew_comentarios()) + "'" : "";
 
-        session.execute("INSERT INTO logs.producto_logs(tipo_registro, codigo, prev_precio, prev_stock, prev_descripcion, prev_imagenes, prev_videos, prev_comentarios, new_precio, new_stock, new_descripcion, new_imagenes, new_videos, new_comentarios, datetime ) VALUES ( 'UPDATE', " + registroDTO.getCodigo() + ", " + registroDTO.getPrev_precio() + ", " + registroDTO.getPrev_stock() + ", '" + registroDTO.getPrev_descripcion() + "', [" + prev_imagenesUrl + "], [" + prev_videosUrl + "], [" + prev_comentarios + "], " + registroDTO.getNew_precio() + ", " + registroDTO.getNew_stock() + ", '" + registroDTO.getNew_descripcion() + "', [" + new_imagenesUrl + "], [" + new_videosUrl + "], [" + new_comentarios + "], " + "toTimeStamp(now()));");
+        session.execute("INSERT INTO logs.registro_logs(tipo_registro, codigo, prev_precio, prev_stock, prev_descripcion, prev_imagenes, prev_videos, new_precio, new_stock, new_descripcion, new_imagenes, new_videos, datetime ) VALUES ( 'UPDATE', " + registroDTO.getCodigo() + ", " + registroDTO.getPrev_precio() + ", " + registroDTO.getPrev_stock() + ", '" + registroDTO.getPrev_descripcion() + "', [" + prev_imagenesUrl + "], [" + prev_videosUrl + "],  " + registroDTO.getNew_precio() + ", " + registroDTO.getNew_stock() + ", '" + registroDTO.getNew_descripcion() + "', [" + new_imagenesUrl + "], [" + new_videosUrl + "], " + "toTimeStamp(now()));");
     }
 
     public void crearRegistroCREATE(LogDTO registroDTO) {
@@ -60,9 +57,8 @@ public class CassandraConnectionPool {
 
         String new_imagenesUrl = registroDTO.getNew_imagenesUrl().size() > 0 ? "'" + String.join("', '", registroDTO.getNew_imagenesUrl()) + "'" : "";
         String new_videosUrl = registroDTO.getNew_videosUrl().size() > 0 ? "'" + String.join("', '", registroDTO.getNew_videosUrl()) + "'" : "";
-        String new_comentarios = registroDTO.getNew_comentarios().size() > 0 ? "'" + String.join("', '", registroDTO.getNew_comentarios()) + "'" : "";
 
-        session.execute("INSERT INTO logs.producto_logs(tipo_registro, codigo, new_precio, new_stock, new_descripcion, new_imagenes, new_videos, new_comentarios, datetime ) VALUES ( 'CREATE', " + registroDTO.getCodigo() + ", " + registroDTO.getNew_precio() + ", " + registroDTO.getNew_stock() + ", '" + registroDTO.getNew_descripcion() + "', [" + new_imagenesUrl + "], [" + new_videosUrl + "], [" + new_comentarios + "], " + "toTimeStamp(now()));");
+        session.execute("INSERT INTO logs.registro_logs(tipo_registro, codigo, new_precio, new_stock, new_descripcion, new_imagenes, new_videos, datetime ) VALUES ( 'CREATE', " + registroDTO.getCodigo() + ", " + registroDTO.getNew_precio() + ", " + registroDTO.getNew_stock() + ", '" + registroDTO.getNew_descripcion() + "', [" + new_imagenesUrl + "], [" + new_videosUrl + "], " + "toTimeStamp(now()));");
     }
 
     public void crearRegistroDELETE(LogDTO registroDTO) {
@@ -71,8 +67,7 @@ public class CassandraConnectionPool {
 
         String prev_imagenesUrl = registroDTO.getPrev_imagenesUrl().size() > 0 ? "'" + String.join("', '", registroDTO.getPrev_imagenesUrl()) + "'" : "";
         String prev_videosUrl = registroDTO.getPrev_videosUrl().size() > 0 ? "'" + String.join("', '", registroDTO.getPrev_videosUrl()) + "'" : "";
-        String prev_comentarios = registroDTO.getPrev_comentarios().size() > 0 ? "'" + String.join("', '", registroDTO.getPrev_comentarios()) + "'" : "";
 
-        session.execute("INSERT INTO logs.producto_logs(tipo_registro, codigo, prev_precio, prev_stock, prev_descripcion, prev_imagenes, prev_videos, prev_comentarios, datetime ) VALUES ( 'DELETE', " + registroDTO.getCodigo() + ", " + registroDTO.getPrev_precio() + ", " + registroDTO.getPrev_stock() + ", '" + registroDTO.getPrev_descripcion() + "', [" + prev_imagenesUrl + "], [" + prev_videosUrl + "], [" + prev_comentarios + "], " + "toTimeStamp(now()));");
+        session.execute("INSERT INTO logs.registro_logs(tipo_registro, codigo, prev_precio, prev_stock, prev_descripcion, prev_imagenes, prev_videos, datetime ) VALUES ( 'DELETE', " + registroDTO.getCodigo() + ", " + registroDTO.getPrev_precio() + ", " + registroDTO.getPrev_stock() + ", '" + registroDTO.getPrev_descripcion() + "', [" + prev_imagenesUrl + "], [" + prev_videosUrl + "], " + "toTimeStamp(now()));");
     }
 }
