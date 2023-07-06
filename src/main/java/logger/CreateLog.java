@@ -4,7 +4,6 @@ import config.CassandraConnectionPool;
 import dtos.LogDTO;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class CreateLog implements TipoLog {
     @Override

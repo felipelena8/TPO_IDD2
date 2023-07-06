@@ -2,7 +2,6 @@ package logger;
 
 import config.CassandraConnectionPool;
 import dtos.LogDTO;
-import java.util.List;
 
 public class UpdateLog implements TipoLog {
     @Override

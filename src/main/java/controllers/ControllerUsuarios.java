@@ -3,18 +3,15 @@ package controllers;
 import dtos.UsuarioDTO;
 import lombok.Getter;
 import lombok.Setter;
-import models.Carrito;
-import models.Producto;
 import models.Usuario;
 import repositories.UserRepository;
 import utils.BotCategoriaUsuario;
 
 public class ControllerUsuarios {
 
+    private static ControllerUsuarios instancia = null;
     @Getter
     private UserRepository repo = new UserRepository();
-    private static ControllerUsuarios instancia = null;
-
     @Getter
     @Setter
     private Usuario session;
@@ -35,7 +32,7 @@ public class ControllerUsuarios {
     }
 
     public void registrarUsuario(Usuario usuario) {
-        if(repo.readPorUsername(usuario.getUsername())==null) {
+        if (repo.readPorUsername(usuario.getUsername()) == null) {
             repo.save(usuario);
             System.out.println("Se ha registrado un nuevo usuario");
         } else {
@@ -43,9 +40,9 @@ public class ControllerUsuarios {
         }
     }
 
-    public void actualizar(Usuario usuario){
+    public void actualizar(Usuario usuario) {
         Usuario usuarioViejo = buscarUsuario(usuario.getUsername());
-        if(usuarioViejo!=null){
+        if (usuarioViejo != null) {
             repo.update(usuarioViejo, usuario);
         }
     }
@@ -56,12 +53,13 @@ public class ControllerUsuarios {
 
     public void iniciarSesion(UsuarioDTO usuario) {
         Usuario user = repo.readPorUsername(usuario.getUsername());
-        if(user!=null && user.getPassword().equals(usuario.getPassword())){
+        if (user != null && user.getPassword().equals(usuario.getPassword())) {
             user.setCarrito(ControllerCarrito.getInstancia().buscarCarrito(user));
             System.out.println("Se ha iniciado sesion. Bienvenido " + usuario.getUsername());
             setSession(user);
         }
     }
+
     public void cerrarSesion() {
         session = null;
     }

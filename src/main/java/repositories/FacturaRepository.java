@@ -3,8 +3,6 @@ package repositories;
 import config.ObjectDBConnectionPool;
 import lombok.Getter;
 import models.Factura;
-import models.Producto;
-import models.Usuario;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;

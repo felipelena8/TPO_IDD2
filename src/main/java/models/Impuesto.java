@@ -1,16 +1,13 @@
 package models;
 
-import javax.persistence.Entity;
-
-
 public abstract class Impuesto {
     private String nombre;
-
-    public abstract double calcularImpuesto(double precio);
 
     public Impuesto(String nombre) {
         this.nombre = nombre;
     }
+
+    public abstract double calcularImpuesto(double precio);
 
     @Override
     public String toString() {

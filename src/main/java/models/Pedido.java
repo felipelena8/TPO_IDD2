@@ -1,12 +1,8 @@
 package models;
 
-import controllers.ControllerUsuarios;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import java.util.List;
 
 @Entity
@@ -38,7 +34,7 @@ public class Pedido {
     }
 
     public Factura generarFactura() {
-        this.factura = new Factura(monto, calcularTotal(),this);
+        this.factura = new Factura(monto, calcularTotal(), this);
         return this.factura;
     }
 

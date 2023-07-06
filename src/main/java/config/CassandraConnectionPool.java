@@ -25,16 +25,17 @@ public class CassandraConnectionPool {
     }
 
     public static void connect() {
-        session = CqlSession.builder()
-                .withCloudSecureConnectBundle(Paths.get("src/main/java/config/secure-connect.zip"))
-                .withAuthCredentials("QtWropsYScUHfXSeteRKXZzy", "4.qUoUNF0rtbQAIz79eFeOXnTDyutj_i-qZbOuPSGzY2AJ8b4TusL,ODWu4NfLpfj7FbCNzfKw1,DveddJr2vnPQhyw4hXj9rd4Z.UN6+TTigxxNuqIMUZQhbMpuj624")
-                .build();
+        if (session == null) {
+            session = CqlSession.builder()
+                    .withCloudSecureConnectBundle(Paths.get("src/main/java/config/secure-connect.zip"))
+                    .withAuthCredentials("QtWropsYScUHfXSeteRKXZzy", "4.qUoUNF0rtbQAIz79eFeOXnTDyutj_i-qZbOuPSGzY2AJ8b4TusL,ODWu4NfLpfj7FbCNzfKw1,DveddJr2vnPQhyw4hXj9rd4Z.UN6+TTigxxNuqIMUZQhbMpuj624")
+                    .build();
+        }
     }
 
     public void borrarDatosTabla() {
         if (session == null)
             connect();
-
         session.execute("truncate logs.registro_logs;");
     }
 
@@ -81,7 +82,6 @@ public class CassandraConnectionPool {
     public ResultSet buscarLogsPorProductoYFechas(int numeroProducto, String fechaMin, String fechaMax) {
         if (session == null)
             connect();
-
         return session.execute("select * from logs.registro_logs where codigo = " + numeroProducto + " AND datetime > '" + fechaMin + "' AND datetime < '" + fechaMax + "' allow filtering;");
     }
 }

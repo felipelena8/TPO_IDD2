@@ -1,5 +1,6 @@
 package com.example.tpo_idd2;
 
+import config.CassandraConnectionPool;
 import controllers.ControllerProductos;
 import controllers.ControllerUsuarios;
 import dtos.UsuarioDTO;
@@ -14,6 +15,8 @@ public class TpoIdd2Application {
 
     public static void main(String[] args) {
         SpringApplication.run(TpoIdd2Application.class, args);
+        CassandraConnectionPool.connect();
+
 
         System.out.println("Se inicia sesion en el usuario Felipe Costa");
         ControllerUsuarios.getInstancia().iniciarSesion(new UsuarioDTO("felipelena", "uade1234"));
@@ -49,7 +52,6 @@ public class TpoIdd2Application {
         prod1.agregarVideoUrl("Video1.png");
         prod1.agregarVideoUrl("video2.png");
 
-
         System.out.println("Se inicia sesion en el usuario Felipe Costa");
         ControllerUsuarios.getInstancia().iniciarSesion(new UsuarioDTO("felipelena", "uade1234"));
         Usuario sesion = ControllerUsuarios.getInstancia().getSession();
@@ -74,7 +76,6 @@ public class TpoIdd2Application {
         factura2.generarPago(MedioPago.TARJETA);
         System.out.println(factura2);
         sesion.persistir();
-
 
         System.out.println("Pedidos");
         System.out.println(sesion.getPedidos());
