@@ -62,7 +62,6 @@ public class TpoIdd2Application {
         MedioPago tarjetaFelipe = MedioPago.TARJETA;
         sesion.getMediosPago().add(tarjetaFelipe);
 
-        //System.out.println(sesion.getPedidos().get(0).getFactura());
         System.out.println(sesion);
         Carrito cart1 = ControllerUsuarios.getInstancia().getSession().getCarrito();
         cart1.agregarItem(2,4);
