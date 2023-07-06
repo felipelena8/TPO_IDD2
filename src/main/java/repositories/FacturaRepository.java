@@ -20,13 +20,12 @@ public class FacturaRepository {
         em.persist(factura);
         em.getTransaction().commit();
     }
-    public List<Factura> readAll(){
+
+    public List<Factura> readAll() {
         Query query = em.createQuery("SELECT u FROM Factura u");
-        List<Factura>  facturas = query.getResultList();
-        return  facturas;
+        List<Factura> facturas = query.getResultList();
+        return facturas;
     }
-
-
 
 
 }

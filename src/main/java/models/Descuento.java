@@ -7,11 +7,11 @@ public class Descuento {
     private double porcentaje;
 
     public Descuento(double porcentaje) {
-        this.porcentaje=porcentaje;
+        this.porcentaje = porcentaje;
     }
 
-    public double calcularDescuento(double precio){
-        return precio*(porcentaje/100.0);
+    public double calcularDescuento(double precio) {
+        return precio * (porcentaje / 100.0);
     }
 
     @Override

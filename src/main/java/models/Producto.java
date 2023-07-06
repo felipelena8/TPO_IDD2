@@ -48,7 +48,7 @@ public class Producto {
         persistir();
     }
 
-    public void persistir(){
+    public void persistir() {
         ControllerProductos.getInstancia().actualizarProducto(this);
     }
 }

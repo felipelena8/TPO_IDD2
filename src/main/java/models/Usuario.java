@@ -42,8 +42,8 @@ public class Usuario implements Serializable {
         this.condicionFiscal = condicionFiscal;
         this.mediosPago = new ArrayList<>();
         this.pedidos = new ArrayList<>();
-        categoria=Categoria.LOW;
-        this.tiempoEnDia=new Tiempo();
+        categoria = Categoria.LOW;
+        this.tiempoEnDia = new Tiempo();
     }
 
     @Override
@@ -55,11 +55,11 @@ public class Usuario implements Serializable {
                 ", password='" + password + '\'' +
                 ", direccion='" + direccion + '\'' +
                 ", dni='" + dni + '\'' +
-                ", tiempo en el dia = " + tiempoEnDia+
-                ", categoria= "+categoria+'}';
+                ", tiempo en el dia = " + tiempoEnDia +
+                ", categoria= " + categoria + '}';
     }
 
-    public void persistir(){
+    public void persistir() {
         ControllerUsuarios.getInstancia().actualizar(this);
     }
 }
