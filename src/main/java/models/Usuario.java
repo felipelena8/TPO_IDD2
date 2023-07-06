@@ -2,7 +2,6 @@ package models;
 
 import controllers.ControllerUsuarios;
 import lombok.Data;
-import models.MedioPago.MedioPago;
 import utils.Tiempo;
 
 import javax.persistence.*;
@@ -14,7 +13,7 @@ import java.util.List;
 @Entity
 public class Usuario implements Serializable {
     @Id
-    private int id;
+    private Integer id;
     private String nombre;
     private String username;
     private String password;
@@ -25,7 +24,6 @@ public class Usuario implements Serializable {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Pedido> pedidos;
     private Categoria categoria;
-    @OneToMany(cascade = CascadeType.ALL)
     private List<MedioPago> mediosPago;
     private int minutosPorDia;
     private CondicionFiscal condicionFiscal;

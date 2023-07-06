@@ -29,6 +29,7 @@ public class Carrito implements Serializable {
         if (!estaVacio()) {
             Pedido pedido = new Pedido(items, precioTotal(), FactoryDescuento.crearDescuento(usuario.getCategoria()), FactoryImpuesto.crearImpuestos(usuario.getCondicionFiscal()));
             usuario.getPedidos().add(pedido);
+            vaciar();
             return pedido;
         }
         return null;
@@ -88,6 +89,7 @@ public class Carrito implements Serializable {
     public void vaciar() {
         items = new ArrayList<>();
         getRepo().limpiarCarrito(getUsuario().getId());
+        System.out.println("Se vacia el carrito");
     }
 
     public boolean estaVacio() {

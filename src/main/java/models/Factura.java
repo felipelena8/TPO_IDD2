@@ -1,15 +1,19 @@
 package models;
 
-import models.MedioPago.MedioPago;
+import controllers.ControllerUsuarios;
+import lombok.Data;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Calendar;
 import java.util.Date;
 
 @Entity
+@Data
 public class Factura {
+
     private Date fechaHoraEmision;
     private Date fechaVencimiento;
     @OneToOne(cascade = CascadeType.ALL)
@@ -20,7 +24,9 @@ public class Factura {
     @OneToOne(cascade = CascadeType.ALL)
     private Pago pago;
 
+
     public Factura(double subtotal, double total, Pedido pedido) {
+
         this.fechaHoraEmision = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(fechaHoraEmision);
@@ -41,11 +47,15 @@ public class Factura {
         this.operadorInterviniente = operadorInterviniente;
         this.pedido = pedido;
         this.total = total;
+
     }
 
-    public Pago generarPago(MedioPago medioPago) {
-        pago = new Pago(medioPago, total);
-        return pago;
+    public void generarPago(MedioPago medioPago) {
+        if(ControllerUsuarios.getInstancia().getSession().getMediosPago().contains(medioPago)){
+            pago = new Pago(medioPago, total);
+            System.out.println("Se ha realizado el pago");
+            System.out.println(pago);
+        }
     }
 
     public boolean estaAbonada(){
@@ -54,13 +64,14 @@ public class Factura {
 
     @Override
     public String toString() {
-        return "Factura{" +
-                "fechaHoraEmision=" + fechaHoraEmision +
+        return "Factura{ fechaHoraEmision=" + fechaHoraEmision +
                 ", fechaVencimiento=" + fechaVencimiento +
                 ", total=" + total +
                 ", subtotal=" + subtotal +
+                ", items= " + pedido.getItems()+
                 ", operadorInterviniente='" + operadorInterviniente +
-                ", pago=" + pago +", descuento= "+pedido.getDescuento() + ", impuestos =" + pedido.getImpuestosAplicados()+
+                ", pago=" + pago +", descuento= "+pedido.getDescuento()+
+                ", impuestos =" + pedido.getImpuestosAplicados()+
                 '}';
     }
 }
