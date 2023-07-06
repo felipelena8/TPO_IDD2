@@ -13,4 +13,8 @@ public abstract class Impuesto {
     public String toString() {
         return nombre;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
 }

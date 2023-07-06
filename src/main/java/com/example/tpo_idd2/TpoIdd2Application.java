@@ -17,7 +17,6 @@ public class TpoIdd2Application {
         SpringApplication.run(TpoIdd2Application.class, args);
         CassandraConnectionPool.connect();
 
-
         System.out.println("Se inicia sesion en el usuario Felipe Costa");
         ControllerUsuarios.getInstancia().iniciarSesion(new UsuarioDTO("felipelena", "uade1234"));
 

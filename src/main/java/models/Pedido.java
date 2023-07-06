@@ -47,12 +47,18 @@ public class Pedido {
 
     @Override
     public String toString() {
-        return "Pedido{" + "numero=" + numero +
-                ", monto=" + monto +
-                ", descuento=" + descuento +
-                ", impuestosAplicados=" + impuestosAplicados +
-                ", items=" + items +
+        String toString = "\n\nPedido: " + numero + " | monto: $" + monto + " descuento: " + descuento.getPorcentaje() + "%\n";
 
-                '}';
+        toString += "\nImpuestos:\n";
+        for (Impuesto impuesto : impuestosAplicados) {
+            toString += impuesto.getNombre() + "\n";
+        }
+
+        toString += "\nItems:\n";
+        for (Item item : items) {
+            toString += item.toString();
+        }
+
+        return toString;
     }
 }

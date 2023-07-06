@@ -18,4 +18,8 @@ public class Descuento {
     public String toString() {
         return "Descuento porcentaje= " + porcentaje;
     }
+
+    public double getPorcentaje() {
+        return porcentaje;
+    }
 }
