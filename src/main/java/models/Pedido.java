@@ -47,7 +47,7 @@ public class Pedido {
 
     @Override
     public String toString() {
-        String toString = "\n\nPedido: " + numero + " | monto: $" + monto + " descuento: " + descuento.getPorcentaje() + "%\n";
+        String toString = "\n\nPedido: monto: $" + monto + " descuento: " + descuento.getPorcentaje() + "%\n";
 
         toString += "\nImpuestos:\n";
         for (Impuesto impuesto : impuestosAplicados) {
@@ -56,7 +56,7 @@ public class Pedido {
 
         toString += "\nItems:\n";
         for (Item item : items) {
-            toString += item.toString();
+            toString += item;
         }
 
         return toString;

@@ -69,10 +69,10 @@ public class Factura {
         toString += "\nSubtotal: " + subtotal;
         toString += "\nItems:\n";
         for (Item item : pedido.getItems()) {
-            toString += item.toString();
+            toString += item;
         }
-        toString += "\nOperador Interviniente: " + operadorInterviniente;
-        toString += "\nPago: " + pago.toString();
+        toString += "\nOperador Interviniente: " + (operadorInterviniente==null?"N/A":operadorInterviniente);
+        toString += "\nPago: " + (estaAbonada()?pago:"No se encuentra abonada");
         toString += "\nImpuestos:\n";
         for (Impuesto impuesto : pedido.getImpuestosAplicados()) {
             toString += impuesto.getNombre() + "\n";
