@@ -3,6 +3,7 @@ package repositories;
 import config.ObjectDBConnectionPool;
 import lombok.Getter;
 import models.Producto;
+import models.ProductoDTO;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -43,7 +44,7 @@ public class ProductoRepository {
         em.getTransaction().commit();
     }
 
-    public void update(Producto productoViejo, Producto productoNuevo) {
+    public void update(Producto productoViejo, ProductoDTO productoNuevo) {
         em.getTransaction().begin();
         productoViejo.setDescripcion(productoNuevo.getDescripcion());
         productoViejo.setImagenesUrl(productoNuevo.getImagenesUrl());
