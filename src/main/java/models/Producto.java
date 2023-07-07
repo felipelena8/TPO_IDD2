@@ -13,6 +13,7 @@ import java.util.List;
 @Entity
 public class Producto {
     private int id;
+
     private String descripcion;
     @OneToMany(cascade = CascadeType.ALL)
     private List<String> imagenesUrl;

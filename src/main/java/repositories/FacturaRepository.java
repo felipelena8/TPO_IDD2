@@ -6,6 +6,7 @@ import models.Factura;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FacturaRepository {
@@ -21,8 +22,11 @@ public class FacturaRepository {
 
     public List<Factura> readAll() {
         Query query = em.createQuery("SELECT u FROM Factura u");
-        List<Factura> facturas = query.getResultList();
-        return facturas;
+        try {
+            List<Factura> facturas = query.getResultList();
+            return facturas;
+        }catch (Exception e){}
+        return new ArrayList<Factura>();
     }
 
 

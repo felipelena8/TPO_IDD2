@@ -12,6 +12,7 @@ import java.util.*;
 public class BotCategoriaUsuario {
     private int periodo = 60000; // un minuto en milisegundos
     private Timer timer = new Timer();
+    //Reinicia el tiempo y setea la categoria LOW. Se ejecuta cada 24 hs a las 24 horas
     private TimerTask tarea1 = new TimerTask() {
         @Override
         public void run() {
@@ -26,6 +27,7 @@ public class BotCategoriaUsuario {
             em.getTransaction().commit();
         }
     };
+    //Calcula el tiempo de session del usuario y lo almacena cada 1 minuto. Se cambia la categoria segun corresponda el tiempo de sesion
     private TimerTask tarea2 = new TimerTask() {//Se cuenta el tiempo en sesion y se va cambiando la categoria segun corresponda
         @Override
         public void run() {
@@ -43,7 +45,7 @@ public class BotCategoriaUsuario {
                     usuario.setCategoria(Categoria.LOW);
                 }
                 em.getTransaction().commit();
-                System.out.println(repo.readPorUsername(usuario.getUsername()));
+                //System.out.println(repo.readPorUsername(usuario.getUsername()));
             }
 
         }

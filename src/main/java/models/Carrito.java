@@ -26,6 +26,8 @@ public class Carrito implements Serializable {
     }
 
     public Pedido generarPedido() {
+        Carrito aux=repo.read(usuario);
+        this.items=aux.getItems();
         if (!estaVacio()) {
             Pedido pedido = new Pedido(items, precioTotal(), FactoryDescuento.crearDescuento(usuario.getCategoria()), FactoryImpuesto.crearImpuestos(usuario.getCondicionFiscal()));
             usuario.getPedidos().add(pedido);

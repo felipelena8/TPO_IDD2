@@ -4,11 +4,13 @@ import config.CassandraConnectionPool;
 import controllers.ControllerProductos;
 import controllers.ControllerUsuarios;
 import dtos.UsuarioDTO;
+import jdk.jshell.execution.Util;
 import models.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.data.cassandra.CassandraDataAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import utils.Utils;
 
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, CassandraDataAutoConfiguration.class})
 public class TpoIdd2Application {
@@ -17,11 +19,10 @@ public class TpoIdd2Application {
         SpringApplication.run(TpoIdd2Application.class, args);
         CassandraConnectionPool.connect();
 
-        System.out.println("Se inicia sesion en el usuario Felipe Costa");
-        ControllerUsuarios.getInstancia().iniciarSesion(new UsuarioDTO("felipelena", "uade1234"));
 
         // Creamos 4 usuarios
         System.out.println("\nSe crean 4 usuarios: -Felipe Costa- -Lucas Muñoz- -Francisco fontana- -Ignacio Cesarani-");
+        Utils.pausar();
         Usuario user1 = new Usuario(1, "Felipe Costa", "felipelena", "uade1234", "Lima 757", "44967716", CondicionFiscal.CONSUMIDOR_FINAL);
         Usuario user2 = new Usuario(2, "Lucas Munoz", "lucasmunoz", "uade1234", "Lima 757", "38000000", CondicionFiscal.NO_ALCANZADO);
         Usuario user3 = new Usuario(3, "Francisco Fontana", "franciscofontana", "uade1234", "Lima 757", "44000000", CondicionFiscal.AUTONOMO);
@@ -31,6 +32,8 @@ public class TpoIdd2Application {
 
         // Se guardan los usuarios creados en la base de datos de ObjectDB
         System.out.println("Se guardan los usuarios creados");
+        Utils.pausar();
+
         ControllerUsuarios.getInstancia().registrarUsuario(user1);
         ControllerUsuarios.getInstancia().registrarUsuario(user2);
         ControllerUsuarios.getInstancia().registrarUsuario(user3);
@@ -38,44 +41,76 @@ public class TpoIdd2Application {
 
         System.out.println("");
 
+        System.out.println("Se inicia sesion en el usuario Felipe Costa");
+        ControllerUsuarios.getInstancia().iniciarSesion(new UsuarioDTO("felipelena", "uade1234"));
+        Utils.pausar();
+
         // Se crean 3 productos: Sacapuntas, Lapicera y Regla
         System.out.println("Se crean 3 productos: Sacapuntas, Lapicera y Regla");
+        Utils.pausar();
         Producto prod2 = new Producto(2, "Lapicera", 30, 100);
         ControllerProductos.getInstancia().agregarProducto(new Producto(1, "Sacapuntas", 500, 100));
         ControllerProductos.getInstancia().agregarProducto(prod2);
         ControllerProductos.getInstancia().agregarProducto(new Producto(3, "Regla", 40, 100));
 
-        prod2.agregarComentario(new Comentario(ControllerUsuarios.getInstancia().getSession(), "hola"));
-        prod2.agregarVideoUrl("Video1.png");
-        prod2.agregarVideoUrl("video2.png");
+        System.out.println("Se realizan modificaciones en el producto");
+        System.out.println("Se agrega un comentario al producto");
+        Utils.pausar();
+        prod2.agregarComentario(new Comentario(ControllerUsuarios.getInstancia().getSession(), "Muy buen producto"));
+        System.out.println("Se agregan videos al producto");
+        Utils.pausar();
+        prod2.agregarVideoUrl("VideoLapicera2.mp4");
+        prod2.agregarVideoUrl("videoLapicera1.mp4");
+        System.out.println("Se cambia el precio del producto");
+        prod2.setPrecio(300);
+        ControllerProductos.getInstancia().actualizarProducto(prod2);
+        Utils.pausar();
 
-        System.out.println("Se inicia sesion en el usuario Felipe Costa");
-        ControllerUsuarios.getInstancia().iniciarSesion(new UsuarioDTO("felipelena", "uade1234"));
+
         Usuario sesion = ControllerUsuarios.getInstancia().getSession();
         sesion.setCategoria(Categoria.TOP);
 
+
         MedioPago tarjetaFelipe = MedioPago.TARJETA;
+        System.out.println("Se agrega un medio de pago: " + tarjetaFelipe);
         sesion.getMediosPago().add(tarjetaFelipe);
 
-        System.out.println(sesion);
+
+        System.out.println("Agregado de productos al carrito");
+        Utils.pausar();
         Carrito cart1 = ControllerUsuarios.getInstancia().getSession().getCarrito();
+        System.out.println("Se agregan 4 unidades del producto: " + ControllerProductos.getInstancia().buscarProducto(2).getDescripcion());
+        Utils.pausar();
         cart1.agregarItem(2, 4);
+        System.out.println("Se agregan 3 unidades del producto: " + ControllerProductos.getInstancia().buscarProducto(1).getDescripcion());
+        Utils.pausar();
+        cart1.agregarItem(1, 3);
+        System.out.println("Se agregan 2 unidades del producto: " + ControllerProductos.getInstancia().buscarProducto(2).getDescripcion());
+        cart1.agregarItem(2, 2);
+        Utils.pausar();
+        System.out.println("Se vuelve al estado anterior del carrito");
+        Utils.pausar();
+        cart1.estadoAnterior();
+
+
+        System.out.println("Se cambia la categoria del usuario a TOP para recibir un descuento");
+        sesion.setCategoria(Categoria.TOP);
+        Utils.pausar();
+
+        System.out.println("Se genera el pedido");
+        Utils.pausar();
         Pedido pedido = cart1.generarPedido();
         System.out.println(pedido);
+        Utils.pausar();
+
+        System.out.println("Se genera la factura del pedido");
+        Utils.pausar();
         Factura factura = pedido.generarFactura();
         System.out.println(factura);
+
+        System.out.println("Se genera el pago de la tarjeta");
+        Utils.pausar();
         factura.generarPago(tarjetaFelipe);
-
-        cart1.agregarItem(3, 5);
-        cart1.agregarItem(1, 2);
-        Pedido pedido2 = cart1.generarPedido();
-        Factura factura2 = pedido2.generarFactura();
-        factura2.generarPago(MedioPago.TARJETA);
-        System.out.println(factura2);
-        sesion.persistir();
-
-        System.out.println("Pedidos");
-        System.out.println(sesion.getPedidos());
-
+        Utils.pausar();
     }
 }
