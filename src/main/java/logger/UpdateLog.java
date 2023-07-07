@@ -6,7 +6,6 @@ import dtos.LogDTO;
 public class UpdateLog implements TipoLog {
     @Override
     public void registrar(RegistroLog registro) {
-
         LogDTO logDTO = new LogDTO(
                 "UPDATE",
                 registro.getNuevoEstado().getId(),

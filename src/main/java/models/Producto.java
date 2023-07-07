@@ -36,20 +36,17 @@ public class Producto {
 
     public void agregarImagenUrl(String imagen) {
         imagenesUrl.add(imagen);
-        persistir();
     }
 
     public void agregarVideoUrl(String videoUrl) {
         videosUrl.add(videoUrl);
-        persistir();
     }
 
     public void agregarComentario(Comentario comentario) {
         comentarios.add(comentario);
-        persistir();
     }
 
     public void persistir() {
-        ControllerProductos.getInstancia().actualizarProducto(this);
+        ControllerProductos.getInstancia().actualizarProducto(new ProductoDTO(this));
     }
 }

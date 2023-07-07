@@ -2,6 +2,7 @@ package controllers;
 
 import logger.*;
 import models.Producto;
+import models.ProductoDTO;
 import repositories.ProductoRepository;
 
 import java.util.List;
@@ -46,12 +47,15 @@ public class ControllerProductos {
         }
     }
 
-    public void actualizarProducto(Producto producto) {
-        Producto prodViejo = buscarProducto(producto.getId());
+    public void actualizarProducto(ProductoDTO prodDTO) {
+        Producto prodViejo = buscarProducto(prodDTO.getId());
+        Producto prodNuevo = prodDTO.createProducto();
+        System.out.println("prodViejo: "+prodViejo);
+        System.out.println("prodNuevo: "+prodDTO);
         if (prodViejo != null) {
-            repo.update(prodViejo, producto);
             logger.cambiarTipoLog(new UpdateLog());
-            logger.registrar(new RegistroLog(prodViejo, producto));
+            logger.registrar(new RegistroLog(prodViejo, prodNuevo));
+            repo.update(prodViejo, prodDTO);
         }
 
     }
