@@ -7,24 +7,25 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Utils {
-    private static Scanner sc =new Scanner(System.in);
+    private static Scanner sc = new Scanner(System.in);
 
-    public static void pausar(){
+    public static void pausar() {
+        System.out.println("\nPresione enter para continuar...\n");
         sc.nextLine();
     }
 
-    public static void leerResultadoCassandra(ResultSet rs){
+    public static void leerResultadoCassandra(ResultSet rs) {
         List<Row> rows = rs.all();
-        for(Row row:rows){
+        for (Row row : rows) {
             System.out.println(leerRow(row));
         }
 
     }
 
-    public static String leerRow(Row row){
+    public static String leerRow(Row row) {
         String s = "codigo: " + row.getInt("codigo") +
                 ", datetime: " + row.getInstant("datetime") +
-                ", tipo_registro: " + row.getString("tipo_registro")+
+                ", tipo_registro: " + row.getString("tipo_registro") +
                 ", new_descripcion:  " + row.getString("new_descripcion") +
                 ", new_imagenes:  " + row.getList("new_imagenes", String.class) +
                 ", new_precio:  " + row.getDouble("new_precio") +
